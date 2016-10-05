@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>UniKl MIIT INTRA Management System</title>
+     <link rel="icon" type="image/ico" href="image/favicon.ico">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    </style>
+
+    <style type="text/css">
+a {
+    color: #0254EB
+}
+a:visited {
+    color: #0254EB
+}
+a.morelink {
+    text-decoration:none;
+    outline: none;
+}
+.morecontent span {
+    display: none;
+    font-family: Georgia, serif;
+}
+.comment {
+    width: 700px;
+    background-color: #DBDBDE;
+    font-family: Georgia, serif;
+    margin: 10px;
+}
+.sub {
+    width: 700px;
+    background-color: #DBDBDE;
+    margin: 10px;
+}
+.title {
+    font-weight: bold;
+    font-family: Georgia, serif;
+    width: 700px;
+    background-color: #393D5C;
+    
+    margin: 10px;
+}
+.post {
+    
+    width: 700px;
+    background-color: #B0E0E6;
+    margin: 10px;
+}
+table.scroll {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 0px solid black;
+}
+table{
+
+  background-color: #DBDBDE;  
+}
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 200px;
+    line-height: 200px;
+    /* text-align: left; */
+}
+
+table.scroll tbody {
+    height: 700px;
+    width: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody { border: 0px dotted gray; }
+
+tbody td, thead th {
+    /* width: 20%; */ /* Optional */
+    border-right: 0px solid black;
+    /* white-space: nowrap; */
+}
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:left;
+}
+
+</style> 
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="image/unikl.png"width="50" height="25" border="0"></a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html" style="color:yellow;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+       <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:yellow;"><span class="glyphicon glyphicon-briefcase"></span> Industrial Partner
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu" style="color:yellow;">
+            <li><a href="partnerRegister.html" style="color:yellow;">Be Our Partner</a></li>
+            <li><a href="partnerList.html" style="color:yellow;">Our Partner List</a></li>
+          </ul>
+      </li>
+      <li><a href="about.html" style="color:yellow;"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.php" style="color:yellow;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+      
+    </div>
+  </div>
+</nav>
+
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div align="center"> <img src="image/slide3.gif" alt = "Ottawa" class = "fill"></div>
+                <div class="carousel-caption">             
+                </div>
+            </div>
+            <div class="item">
+                <div align="center"> <img src="image/slide1.jpg" alt = "Ottawa" class = "fill"></div>
+                <div class="carousel-caption">             
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+
+
+    <!-- Page Content -->
+    <div class="container">
+<div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Welcome to UniKL MIIT INTRA Management System </h1>
+                
+                <p>&nbsp;</p>
+             
+            </div>
+        </div>
+        <!-- Marketing Icons Section -->
+        <div class="row">
+          
+            <p>&nbsp;</p>
+            <div class="col-lg-8">
+      <ul class="nav nav-pills"  >
+        <li class="active"><a href="#important" data-toggle="tab" style="width:350px;height:40px;">Important Announcement</a></li>
+        <li><a href="#miit" data-toggle="tab" style="width:350px;height:40px;">MIIT Announcement</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade in active"  id="important">
+          <p>
+
+
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE type='Student' AND pinpost='1'  OR type='All' AND pinpost='1' ORDER BY STR_TO_DATE(tdate, '%d/%m/%Y') DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='scroll' width='700' border='0' align='left'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+
+if(is_null($row['fileType']) || $row['fileType'] == ""){
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else if($row['fileType'] == "image/png" || $row['fileType'] == "image/gif" || $row['fileType'] == "image/jpeg"){
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="center"><img src="uploads/'. $row['file'] .'" alt="Image"></div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else{
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo '<div class="comment more" align="left"><a href="uploads/' . $row['file'] . '" target="_blank" data-toggle="tooltip" title="Click to Download File" ><span class="glyphicon glyphicon-save"></span> ' . $row['file']. '&nbsp; </a></div>';
+echo "</td>";
+echo "</tr>";
+
+}
+
+
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+echo "</div>";
+}
+}
+
+
+?>
+        </div>
+        <div class="tab-pane fade"  id="miit">
+          <p>
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE  type='All' AND pinpost='0' ORDER BY STR_TO_DATE(tdate, '%d/%m/%Y') DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='scroll' width='700' border='0' align='left'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+        if (is_null($row['link'])){
+
+
+if(is_null($row['fileType']) || $row['fileType'] == ""){
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else if($row['fileType'] == "image/png" || $row['fileType'] == "image/gif" || $row['fileType'] == "image/jpeg"){
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="center"><img src="uploads/'. $row['file'] .'" alt="Image"></div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else{
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo '<div class="comment more" align="left"><a href="uploads/' . $row['file'] . '" target="_blank" data-toggle="tooltip" title="Click to Download File" ><span class="glyphicon glyphicon-save"></span> ' . $row['file']. '&nbsp; </a></div>';
+echo "</td>";
+echo "</tr>";
+
+}
+
+
+}else {
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo '<div class="comment more" align="left"><a href="viewShortlisted1.php?id=' . $row['link'] . '" data-toggle="tooltip" title="Click to view" ">' . 'View List'.'</a></div>';
+echo '<div class="comment more" align="left">' . nl2br($row['additional']) . '</div><br>';
+echo '<div class="comment more" align="left">' . 'Regards,' . '</div>';
+echo '<div class="comment more" align="left">' . $row[5] . ' Recruitment Team ' . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}
+
+}
+ echo "</tbody>";
+echo "</table>";
+echo "</div>";
+echo "</div>";
+}
+}
+
+
+?>
+
+
+        </div>
+</div>
+      </div>
+    
+
+
+
+            <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i><span class="glyphicon glyphicon-menu-hamburger"></span>  Others Portal</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><span class="glyphicon glyphicon-triangle-right"></span><a href="http://www.unikl.edu.my/"> UniKL Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span><a href="http://www.miit.unikl.edu.my/"> UniKL MIIT Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="http://www.online.unikl.edu.my"> E-Citie Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="https://vle.unikl.edu.my/"> VLE Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="http://ir.unikl.edu.my/"> UniKL IR Portal</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-compass"></i><span class="glyphicon glyphicon-info-sign"></span> About Us</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>UniKL MIIT INTRA Management System is a job-matching programme initiated by Universiti Kuala Lumpur MIIT. This programme gives industry players the opportunity to cultivate and recruit promising graduates from Universiti Kuala Lumpur MIIT to their place of employment after graduation. We strogly believe that that this programme is an exceptional recruitment and retention tool for Universiti Kuala Lumpur.</p>
+                        <a href="partnerRegister.html" class="btn btn-default" style="color:#5bc0de;">Be Our Partner</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Section -->
+       
+
+        <!-- Footer -->
+        <footer align="center">
+            <div class="row" >
+                <div class="col-lg-12">
+                    <p>Copyright &copy; UniKl MIIT INTRA Management System (2016)</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+
+
+<script>
+var $table = $('table.scroll'),
+    $bodyCells = $table.find('tbody tr:first').children(),
+    colWidth;
+
+// Adjust the width of thead cells when window resizes
+$(window).resize(function() {
+    // Get the tbody columns width array
+    colWidth = $bodyCells.map(function() {
+        return $(this).width();
+    }).get();
+    
+    // Set the width of thead columns
+    $table.find('thead tr').children().each(function(i, v) {
+        $(v).width(colWidth[i]);
+    });    
+}).resize();
+</script>
+
+</html>
+

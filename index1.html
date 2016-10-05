@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>INTRA Management System</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="css/style2.css" type="text/css" media="all">
+
+<script type="text/javascript" src="js/jquery-1.4.2.min.js" ></script>
+<script type="text/javascript" src="js/cufon-yui.js"></script>
+<script type="text/javascript" src="js/cufon-replace.js"></script>
+<script type="text/javascript" src="js/Myriad_Pro_300.font.js"></script>
+<script type="text/javascript" src="js/Myriad_Pro_400.font.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/ie6.css" type="text/css" media="screen">
+<script type="text/javascript" src="js/ie_png.js"></script>
+<script type="text/javascript">ie_png.fix('.png, footer, header nav ul li a, .nav-bg, .list li img');</script>
+<![endif]-->
+<!--[if lt IE 9]><script type="text/javascript" src="js/html5.js"></script><![endif]-->
+<style>
+body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+<style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+
+    <style type="text/css">
+a {
+    color: #0254EB
+}
+a:visited {
+    color: #0254EB
+}
+a.morelink {
+    text-decoration:none;
+    outline: none;
+}
+.morecontent span {
+    display: none;
+}
+.comment {
+    width: 800px;
+    background-color: #E6E6FA;
+    margin: 10px;
+}
+.sub {
+    width: 800px;
+    background-color: #E6E6FA;
+    margin: 10px;
+}
+.title {
+    font-weight: bold;
+    width: 800px;
+    background-color: #ADD8E6;
+    margin: 10px;
+}
+.post {
+    
+    width: 800px;
+    background-color: #B0E0E6;
+    margin: 10px;
+}
+table.scroll {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 0px solid black;
+}
+table{
+
+  background-color: #E6E6FA;
+}
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 200px;
+    line-height: 200px;
+    /* text-align: left; */
+}
+
+table.scroll tbody {
+    height: 500px;
+    width: 600px;
+    overflow-y: auto;
+    overflow: auto;
+    table-layout:fixed
+}
+
+tbody { border-top: 0px solid black; }
+
+tbody td, thead th {
+    /* width: 20%; */ /* Optional */
+    border-right: 0px solid black;
+    /* white-space: nowrap; */
+}
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+
+.tabs input[type=radio] {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+      }
+      .tabs {
+        width: 640px;
+        height: 500px;
+        float: none;
+        list-style: none;
+        position: relative;
+        padding: 0;
+        margin: 75px auto;
+      }
+      .tabs li{
+        float: left;
+      }
+      .tabs label {
+          display: block;
+          padding: 10px 20px;
+          border-radius: 2px 2px 0 0;
+          color: #08C;
+          font-size: 24px;
+          font-weight: normal;
+          font-family: 'Lily Script One', helveti;
+          background: rgba(255,255,255,0.2);
+          cursor: pointer;
+          position: relative;
+          top: 3px;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+          -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+      }
+      .tabs label:hover {
+        background: rgba(255,255,255,0.5);
+        top: 0;
+      }
+       
+      [id^=tab]:checked + label {
+        background: #08C;
+        color: white;
+        top: 0;
+      }
+       
+      [id^=tab]:checked ~ [id^=tab-content] {
+          display: block;
+      }
+      .tab-content{
+        z-index: 2;
+        display: none;
+        text-align: left;
+        width: 200;
+        font-size: 12px;
+        
+        padding-top: 10px;
+        background: gray;
+        padding: 15px;
+        color: black;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        box-sizing: border-box;
+        -webkit-animation-duration: 0.5s;
+        -o-animation-duration: 0.5s;
+        -moz-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+      }
+
+</style>
+</head>
+<body id="page1">
+<!-- START PAGE SOURCE -->
+<div class="wrap">
+  <header>
+    <div class="container">
+      <h1><a href="#">University Kuala Lumpur</a></h1>
+      <nav>
+        <ul>
+          <li class="current"><a href="index1.html" class="m1">Home Page</a></li>              
+          <li class="dropdown"><a href="#" class="m2">Industrial Partner</a>
+          <ul class="dropdown-menu">
+            <li><a href="partnerRegister.html">Be Our Partner</a></li>
+            <li><a href="partnerList.html">Our Partner List</a></li>
+          </ul>
+      </li>
+      <li><a href="about.html" class="m3">About Us</a></li>
+<ul style="float:right;list-style-type:none;">
+    <li><a href="login.php" class="m4">Login</a></li>
+  </ul>
+        </ul>
+
+      </nav>
+     
+    </div>
+  </header>
+  <div class="container">
+    <aside>
+      <h3>Others Portal</h3>
+      <ul class="categories">
+        <li><span><a href="www.unikl.edu.my">UniKL Portal</a></span></li>
+        <li><span><a href="www.miit.unikl.edu.my">MIIT Portal</a></span></li>
+        <li><span><a href="online.unikl.edu.my">MIIT E-Citie Portal</a></span></li>
+        <li><span><a href="elearn.unikl.edu.my">MIIT E-Learning Portal</a></span></li>
+        <li><span><a href="http://ir.unikl.edu.my/">UniKL IR Portal</a></span></li>
+        <li class="last"><span><a href="www.unikl.edu.my/web/unikl/academic-calendar">Academic Calendar</a></span></li>
+      </ul>
+      <form action="#" id="newsletter-form">
+        <fieldset>
+          <div class="rowElem">
+            <h2>Get INTRA News</h2>
+            <input type="email" value="Enter Your Email Here" onFocus="if(this.value=='Enter Your Email Here'){this.value=''}" onBlur="if(this.value==''){this.value='Enter Your Email Here'}" >
+            <div class="clear"><a href="#" class="fright">Subscribe</a></div>
+          </div>
+        </fieldset>
+      </form>
+      <h2>Latest <span>INTRA Vacancy</span></h2>
+      <ul class="news">
+        <li><strong>June 30, 2010</strong>
+          <h4><a href="#">Sed ut perspiciatis unde</a></h4>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque. </li>
+        <li><strong>June 14, 2010</strong>
+          <h4><a href="#">Neque porro quisquam est</a></h4>
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit consequuntur magni. </li>
+        <li><strong>May 29, 2010</strong>
+          <h4><a href="#">Minima veniam, quis nostrum</a></h4>
+          Uis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae. </li>
+      </ul>
+    </aside>
+    <section id="content">
+      <div id="banner">
+        <h2>UniKL MIIT <span>INTRA MANAGEMENT <span>System</span></span></h2>
+      </div>
+      <div class="inside">
+        
+        
+          <li>
+            <ul class="tabs">
+        <li>
+          <input type="radio" checked name="tabs" id="tab1">
+          <label for="tab1">Important Anouncement</label>
+          <div id="tab-content1" class="tab-content animated fadeIn">
+    <?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE type='Student' AND pinpost='1'  OR type='All' AND pinpost='1' ORDER BY tdate DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<table class='scroll' width='100' border='1' align='left'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div style="color:#000000" class="title" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . $row[4] . '</div>';
+echo "</td>";
+echo "</tr>";
+
+
+}
+echo "</tbody>";
+echo "</table>";
+}
+}
+
+
+?>
+          </div>
+        </li>
+        <li>
+          <input type="radio" name="tabs" id="tab2">
+          <label for="tab2">MIIT Anouncement</label>
+          <div id="tab-content2" class="tab-content animated fadeIn">
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE  type='All' AND pinpost='0' ORDER BY tdate DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<table class='scroll' width='100' border='1' align='center'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div style="color:#000000" class="title" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . $row[4] . '</div>';
+echo "</td>";
+echo "</tr>";
+
+
+}
+echo "</tbody>";
+echo "</table>";
+}
+}
+
+
+?>
+          </div>
+        </li>
+
+
+        </ul>
+       
+      </div>
+    </section>
+  </div>
+</div>
+<footer>
+  <div class="footerlink">
+    <p class="lf">Copyright &copy; 2015 <a href="#">UniKL MIIT INTRA Management System</a> - All Rights Reserved</p>
+    <p class="rf">Design by <a href="http://www.templatemonster.com/">TemplateMonster</a></p>
+    <div style="clear:both;"></div>
+  </div>
+</footer>
+<script type="text/javascript"> Cufon.now(); </script>
+<!-- END PAGE SOURCE -->
+</body>
+
+</html>

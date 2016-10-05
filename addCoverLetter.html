@@ -1,0 +1,400 @@
+<?php
+
+session_start();
+include ('Connections/connect.php');
+
+if(@$_SESSION['student']  ) {
+
+ 
+
+$studentId = ($_SESSION['student']);
+$total = null;
+$count1 = null;
+$count2 = null;
+$count3 = null;
+
+if ($total == 0) {
+     
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tblpartner.companyName,tblpartner.companyUsername,tblofferjob.offerid,tblofferjob.companyId,
+tblofferjob.studentId,tblofferjob.position,tblofferjob.itime,tblofferjob.ivenue,tblofferjob.information,tblofferjob.idate,tblofferjob.status,
+tblofferjob.offerdate FROM tblpartner INNER JOIN tblofferjob ON tblpartner.companyUsername = tblofferjob.companyId WHERE tblofferjob.studentId = '$studentId' AND tblofferjob.status = 'waiting' OR tblofferjob.status = 'interview' AND tblofferjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count1 = $mysqli->affected_rows;
+    
+}
+}
+
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tbljob.jobId,tblapplyjob.applyId,tblapplyjob.studentId,
+tblapplyjob.postId,tblapplyjob.position,tblapplyjob.jstatus,tblapplyjob.aDate FROM tbljob
+INNER JOIN tblapplyjob ON tbljob.jobId = tblapplyjob.postId
+WHERE tblapplyjob.jstatus = 'approved' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'rejected' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'interview' AND tblapplyjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count2 = $mysqli->affected_rows;
+
+    
+}
+}
+
+include ('Connections/connect.php');
+
+
+if ($result = $mysqli->query("SELECT tblapplymobilization.otherId,tblapplymobilization.mlocation,tblapplymobilization.mcgpa,tblapplymobilization.mdate,tblapplymobilization.mstatus,tblother.companyId,tblpartner.companyName,tblapplymobilization.studentId,tblapplymobilization.mId
+FROM tblother INNER JOIN tblapplymobilization ON tblapplymobilization.otherId = tblother.otherId
+INNER JOIN tblpartner ON tblother.companyId = tblpartner.companyUsername WHERE tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'interview' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'rejected' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'approved'"))
+    {
+  if ($result->num_rows != 0) {
+
+        $count3 = $mysqli->affected_rows;
+
+    
+}
+}
+
+$total = $count1 + $count2 + $count3;
+
+
+} else {
+
+  $total = 0;
+}
+
+  ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+
+  <meta name="keywords" content="" />
+   <meta name="description" content="" />
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   
+<title>UniKl MIIT INTRA Management System</title>
+     <link rel="icon" type="image/ico" href="image/favicon.ico">
+
+
+   <!-- dd menu -->
+   <script type="text/javascript" src="js/view.thumbnail.js"></script>
+  <link rel="stylesheet" href="css/verticalTabs.css" />
+ <link href="css/custom.css" rel="stylesheet">
+  <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<style>
+ .banner {
+    width: 100%;
+    height: 200px;
+    border: 0px solid #73AD21;
+}
+.badge {
+  background-color: red;
+
+}
+</style>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="image/unikl.png"width="50" height="25" border="0"></a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="homeStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li><a href="searchJob.html" style="color:yellow;"><span class="glyphicon glyphicon-search"></span> Search INTRA</a></li> 
+ <?php 
+ if ($total > 0){ ?>
+         
+        <li><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification <span class="badge"><?php echo $total; ?></span></a></li> <?php }else{ ?>
+
+        <li><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification</span></a></li> <?php } ?>
+
+        </li>
+
+        <li><a href="myResume.php" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Resume</a></li>
+        <li class="active"><a href="addCoverLetter.html" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Cover Letter</a></li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="profileStudent.php" style="color:yellow;"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="changePasswordStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
+            <li><a href="logout.php" style="color:yellow;"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+          </ul>
+    </div>
+  </div>
+</nav>
+
+  <header>
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
+        <div class="banner">            
+                <img src="image/header.jpg" alt = "Ottawa" class = "banner">
+        </div>
+    </header>
+
+        <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 ">
+  
+  <h1>Cover Letter</h1>
+  <p>&nbsp;</p>
+
+
+</div>
+
+<form id="formResume" method="POST" action="">
+
+              
+              
+              <div id="resumecontent" class="tab-content">
+
+<?php
+
+include ('Connections/connect.php');
+
+$studentId = ($_SESSION['student']);
+$date = (date("d/m/Y"));
+$intrastart = '01/09/2016';
+$intrafinish = '31/12/2016';
+
+   if ($result = $mysqli->query("SELECT * FROM tblstudent WHERE studentId=$studentId"))
+    {
+  if ($result->num_rows != 0) {
+
+      
+      echo '<table align="center" width="900" border="1">';
+      echo '<tr>';
+      echo '<td>';
+      echo "<div id='intraletter'>";
+      echo '<table align="center" width="900" border="0" id="intraletter">';
+      echo '<tr>';
+      echo '<td>'; 
+
+     while($row = mysqli_fetch_array($result)) {
+
+      if ($row['programme'] == 'Bachelor of Information Technology (Hons.) in Software Engineering'){
+        $programme = 'BSE';
+      } else if ($row['programme'] == 'Bachelor of Information Technology (Hons.) in Network Security'){
+        $programme = 'BNS';
+      } else if ($row['programme'] == 'Bachelor of Business Technology (Hons.) in Computer Entrepreneurial Management
+'){
+        $programme = 'BCEM';
+    } else if ($row['programme'] == 'Bachelor of Computer Engineering (Hons.)'){
+        $programme = 'BCE';
+    } else if ($row['programme'] == 'Bachelor of Information Technology (Hons.) in Computer System Security
+
+'){
+        $programme = 'BCSS';
+    } else if ($row['programme'] == 'Bachelor of Multimedia Technology (Hons) in Computer Animation
+
+'){
+        $programme = 'BCA';
+    } else if ($row['programme'] == 'Bachelor of Multimedia Technology (Hons.) in Interactive Multimedia Design
+
+'){
+        $programme = 'BIMD';
+    } else {
+        $programme = '???';
+    }
+      echo '<table align="center" width=900" border="0">';
+      echo '<tr>';
+      echo '<td><img src="image/letterhead.jpg" alt = "unikl" class = "letterhead"></td>';
+      echo '</tr>';
+      echo '</table>';
+      echo '<table align="center" width="800" border="0">';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td width="50">Ref</td>';
+      echo '<td> : UniKL MIIT/LI/'.$programme.'/'.$date.'</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>Date</td>';
+      echo '<td> : '.$date.'</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '</table>';
+      echo '<table align="center" width="800" border="0">';
+      echo '<tr>';
+      echo '<td align="center"><font style="font-weight:bold;">TO WHOM IT MAY CONCERN</font></td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '</table>';
+      echo '<table align="center" width="800" border="0">';
+      echo '<tr>';
+      echo '<td>Dear Sir/Madam,</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td><font style="font-weight:bold;">PRACTICAL PLACEMENT REQUEST</font></td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>As part of the requirement for our '.$row['programme'].' course conducted at <span style="font-weight:bold;">UNIVERSITI KUALA LUMPUR MALAYSIAN INSTITUTE OF INFORMATION TECHNOLOGY (UniKL MIIT)</span>, our students have to go a period of industrial training with IT department or other related companies.</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>This is to ensure that these students will get as much as much exposure as possible on the real working environment before they actually join the real workforce.</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>We continuously find reputable and experienced companies to help us achieve this objective. With regard to this matter, we would like to request our student to be accepted to carry out the practical training at your establishment. The industrial training will commence from <span style="font-weight:bold;">'.$intrastart.' until '.$intrafinish.' (16 weeks).</span></td>';
+      echo '</tr>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>The student is as stated below:</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '</table>';
+      echo '<table align="center" width="800" border="0">';
+      echo '<tr>';
+      echo '<td width="100">&nbsp;</td>';
+      echo '<td><font style="font-weight:bold;">NAME : '.$row['studentName'].'</font></td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td width="100">&nbsp;</td>';
+      echo '<td><font style="font-weight:bold;">IC NO : '.$row['studentIc'].'</font></td>';
+      echo '</tr>';
+      echo '</table>';
+      echo '<table align="center" width="800" border="0">';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>We really look forward to your response. Enclosed are students resume for your reference and reply form to be completed and returned to us within <font style="font-weight:bold;">two weeks </font>from this letter is issued. We would like to take this opportunity to invite your company to register with us at our UniKL MIIT INTRA Management System <font style="text-decoration:underline;">http://www.miitintrasystem.unikl.edu.my/</font> for job recruitment and advertisement.</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>Please do not hesitate to call us if there is any matters pertaining to our student that need to be obtained or discussed. Your cooperation and kindness are very much appreciated.</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>Best wishes,</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td><span style="font-weight:bold;">Maizul Hisham Abdul Malek</span></td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>Senior Executive @ Industrial Partnership Unit</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>Malaysian Institute of Information Technology (MIIT)</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>Universiti Kuala Lumpur (UniKL)</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '</table>';
+
+      }
+
+      echo '</td>';
+      echo '</tr>';
+      echo "</table>";
+      echo "</div>";
+      echo '</td>';
+      echo '</tr>';
+      echo '</table>';
+
+      echo '<table align="center" width="950" border="0">';
+      echo '<tr>';
+      echo '<td>&nbsp;</td>';
+      echo '</tr>';
+      echo '<tr>';
+      echo '<td align="right">';
+      echo "<button id='btnpdf'  class='btn btn-info'>Download PDF</button>";
+      echo '</td>';
+      echo '</tr>';
+      echo '</table>';
+   }
+
+}
+
+?>
+
+  <p>&nbsp;</p>
+
+
+   </div>
+        
+
+        <!-- /.row -->
+        <footer align="center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; UniKl MIIT INTRA Management System (2016)</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-printme.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+<script>
+    $("#btnpdf").click(function(){
+      $("#intraletter").printMe({ "path": "js/libs/bootstrap.min.css" });
+    });
+    </script>
+
+</html>
+
+<?php 
+
+
+} else {
+  session_destroy();
+  header("location: login.php");
+  exit;
+
+  
+}
+
+?>

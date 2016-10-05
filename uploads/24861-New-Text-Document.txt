@@ -1,0 +1,25 @@
+public void Connection() {
+
+        DefaultTableModel model = (DefaultTableModel) tableProduct.getModel();
+        try {
+            Class.forName("java.sql.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/burger", "root", "1234");
+            st = con.createStatement();
+
+            String queary = "Select * from product;";
+            rs = st.executeQuery(queary);
+
+            while (rs.next()) {
+                String d1 = rs.getString("productID");
+                String d2 = rs.getString("productName");
+                String d3 = rs.getString("productPrice");
+                String d4 = rs.getString("quantity");
+
+                model.addRow(new Object[]{d1, d2, d3, d4});
+            }
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Error in connection");
+
+        }
+    }

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Bootsrtap For Beginners</title>
+	<meta name="description" content="Hello World">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+<style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+
+    <style type="text/css">
+a {
+    color: #0254EB
+}
+a:visited {
+    color: #0254EB
+}
+a.morelink {
+    text-decoration:none;
+    outline: none;
+}
+.morecontent span {
+    display: none;
+}
+.comment {
+    width: 800px;
+    background-color: #DCDCDC;
+    margin: 10px;
+}
+.title {
+    font-weight: bold;
+    width: 800px;
+    background-color: #B0E0E6;
+    margin: 10px;
+}
+.post {
+    
+    width: 800px;
+    background-color: #B0E0E6;
+    margin: 10px;
+}
+table.scroll {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 0px solid black;
+}
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 200px;
+    line-height: 200px;
+    /* text-align: left; */
+}
+
+table.scroll tbody {
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody { border-top: 0px solid black; }
+
+tbody td, thead th {
+    /* width: 20%; */ /* Optional */
+    border-right: 0px solid black;
+    /* white-space: nowrap; */
+}
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+
+#centeredmenu {
+   float:left;
+   width:100%;
+   background:#fff;
+   border-bottom:4px solid #000;
+   overflow:hidden;
+   position:relative;
+}
+#centeredmenu ul {
+   clear:left;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   left:50%;
+   text-align:center;
+}
+#centeredmenu ul li {
+   display:block;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   right:50%;
+}
+#centeredmenu ul li a {
+   display:block;
+   margin:0 0 0 1px;
+   padding:3px 10px;
+   background:#ddd;
+   color:#000;
+   text-decoration:none;
+   line-height:1.3em;
+}
+#centeredmenu ul li a:hover {
+   background:#369;
+   color:#fff;
+}
+#centeredmenu ul li a.active,
+#centeredmenu ul li a.active:hover {
+   color:#fff;
+   background:#000;
+   font-weight:bold;
+}
+</style>	
+
+</head>
+
+<body>
+
+	<header>
+		<div class="jumbotron">
+			
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="image/unikl.png"width="42" height="20" border="0"></a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="homeStudent.php">Home</a></li>
+        <li><a href="#">Notification</a></li> 
+        </li>
+        <li><a href="myResume.php">Resume</a></li>
+        <li><a href="addCoverLetter.html">Cover Letter</a></li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="changePassword.html">Change Password</a></li>
+            <li><a href="logout.php">Logout</a></li>
+          </ul>
+    </div>
+  </div>
+</nav>
+			
+		</div> 
+	</header>
+
+	<div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Welcome UniKL MIIT INTRA Management System </h1>
+                
+                <p>&nbsp;</p>
+
+                <table align="center" border="1">
+
+                  <tr align="center">
+                    <img src="image/important.gif" alt="Important Notice" style="width:250px;height:70px;">
+                  </tr>
+                  <tr>
+                    <td>
+                  
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE type='Student' AND pinpost='1'  OR type='All' AND pinpost='1' ORDER BY tdate DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<table class='scroll' width='800' border='0'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div style="color:#000000" class="title" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . $row[4] . '</div>';
+echo "</td>";
+echo "</tr>";
+
+
+}
+echo "</tbody>";
+echo "</table>";
+}
+}
+
+
+?>
+                    </td>
+                  </tr>
+                </table>
+
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                </div>
+            </div>
+
+	</div>
+
+		<div class="container">
+			<ul class="nav nav-pills nav-justified">
+				<li class="active"><a href="#Home" data-toggle="tab">INTRA Job Anouncement</a></li>
+				<li><a href="#About" data-toggle="tab">MIIT Anouncement</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane fade in active"  id="Home">
+					<p>
+
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tbljob.jobId, tbljob.title, tbljob.position1, tbljob.position2, tbljob.position3, tbljob.description1, tbljob.requirement1, tbljob.mincgpa1, tbljob.alowance1, tbljob.status, tbljob.pdate, tbljob.companyId, tblpartner.companyName FROM tbljob INNER JOIN tblpartner ON tbljob.companyId = tblpartner.companyUsername WHERE tbljob.status = 'active' ORDER BY tbljob.pDate DESC"))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<table class='scroll' width='800' border='0'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div style="color:#000000" class="title" align="left">' . $row['title'] . '<br/>'. 'By '. $row['companyName'] . ' - '. $row['pdate'] . '</div>';
+echo '<div class="comment more" align="left">' .'Position :' . $row['position1'] . ', ' . $row['position2'] . ', ' . $row['position3'] . '<br>' . '<a href="viewJobAnouncement.php?id=' . $row[0] . '">' .'&nbsp;' .'&nbsp;' . 'View Details' .'</a>' . '</div>';
+echo "</td>";
+echo "</tr>";
+
+
+}
+echo "</tbody>";
+echo "</table>";
+}
+}
+
+
+?>
+				</div>
+				<div class="tab-pane fade"  id="About">
+					<p>
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE type='Student' AND pinpost='0'  OR type='All' AND pinpost='0' ORDER BY tdate DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<table class='scroll' width='800' border='0'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div style="color:#000000" class="title" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . $row[4] . '</div>';
+echo "</td>";
+echo "</tr>";
+
+
+}
+echo "</tbody>";
+echo "</table>";
+}
+}
+
+
+?>
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+	<footer>
+		<div class="container">
+			<hr>
+
+		</div> <!-- end container -->
+	</footer>
+		
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>	
+
+<script>
+$(document).ready(function() {
+    var showChar = 100;
+    var ellipsestext = "...";
+    var moretext = "more";
+    var lesstext = "less";
+    $('.more').each(function() {
+        var content = $(this).html();
+
+        if(content.length > showChar) {
+
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar-1, content.length-showChar);
+                                                console.log(c);
+                                                console.log(h);
+            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+            $(this).html(html);
+        }
+
+    });
+
+    $(".morelink").click(function(){
+        if($(this).hasClass("less")) {
+            $(this).removeClass("less");
+            $(this).html(moretext);
+        } else {
+            $(this).addClass("less");
+            $(this).html(lesstext);
+        }
+        $(this).parent().prev().toggle();
+        $(this).prev().toggle();
+        return false;
+    });
+});
+</script>
+
+<script>
+var $table = $('table.scroll'),
+    $bodyCells = $table.find('tbody tr:first').children(),
+    colWidth;
+
+// Adjust the width of thead cells when window resizes
+$(window).resize(function() {
+    // Get the tbody columns width array
+    colWidth = $bodyCells.map(function() {
+        return $(this).width();
+    }).get();
+    
+    // Set the width of thead columns
+    $table.find('thead tr').children().each(function(i, v) {
+        $(v).width(colWidth[i]);
+    });    
+}).resize();
+</script>
+
+</html>

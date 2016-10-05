@@ -1,0 +1,324 @@
+<?php
+
+session_start();
+include ('Connections/connect.php');
+
+if(@$_SESSION['student']  ) {
+
+$studentId = ($_SESSION['student']);
+$total = null;
+$count1 = null;
+$count2 = null;
+$count3 = null;
+
+if ($total == 0) {
+     
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tblpartner.companyName,tblpartner.companyUsername,tblofferjob.offerid,tblofferjob.companyId,
+tblofferjob.studentId,tblofferjob.position,tblofferjob.itime,tblofferjob.ivenue,tblofferjob.information,tblofferjob.idate,tblofferjob.status,
+tblofferjob.offerdate FROM tblpartner INNER JOIN tblofferjob ON tblpartner.companyUsername = tblofferjob.companyId WHERE tblofferjob.studentId = '$studentId' AND tblofferjob.status = 'waiting' OR tblofferjob.status = 'interview' AND tblofferjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count1 = $mysqli->affected_rows;
+    
+}
+}
+
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tbljob.jobId,tblapplyjob.applyId,tblapplyjob.studentId,
+tblapplyjob.postId,tblapplyjob.position,tblapplyjob.jstatus,tblapplyjob.aDate FROM tbljob
+INNER JOIN tblapplyjob ON tbljob.jobId = tblapplyjob.postId
+WHERE tblapplyjob.jstatus = 'approved' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'rejected' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'interview' AND tblapplyjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count2 = $mysqli->affected_rows;
+
+    
+}
+}
+
+include ('Connections/connect.php');
+
+
+if ($result = $mysqli->query("SELECT tblapplymobilization.otherId,tblapplymobilization.mlocation,tblapplymobilization.mcgpa,tblapplymobilization.mdate,tblapplymobilization.mstatus,tblother.companyId,tblpartner.companyName,tblapplymobilization.studentId,tblapplymobilization.mId
+FROM tblother INNER JOIN tblapplymobilization ON tblapplymobilization.otherId = tblother.otherId
+INNER JOIN tblpartner ON tblother.companyId = tblpartner.companyUsername WHERE tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'interview' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'rejected' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'approved'"))
+    {
+  if ($result->num_rows != 0) {
+
+        $count3 = $mysqli->affected_rows;
+
+    
+}
+}
+
+$total = $count1 + $count2 + $count3;
+
+
+} else {
+
+  $total = 0;
+}
+
+  ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>UniKl MIIT INTRA Management System</title>
+     <link rel="icon" type="image/ico" href="image/favicon.ico">
+  <meta name="description" content="Hello World">
+  <!-- Latest compiled and minified CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Optional theme -->
+  <style>
+ .banner {
+    width: 100%;
+    height: 200px;
+    border: 0px solid #73AD21;
+}
+.badge {
+  background-color: red;
+
+}
+.with-nav-tabs.panel-primary .nav-tabs > li > a,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+    color: #fff;
+    background-color: #393D5C;
+}
+.with-nav-tabs.panel-primary .nav-tabs > .open > a,
+.with-nav-tabs.panel-primary .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+  color: black;
+  background-color: #FF8000;
+  border-color: #DBDBDE;
+}
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a,
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+  color: #428bca;
+  background-color: #DBDBDE;
+  border-color: #DBDBDE;
+  border-bottom-color: #DBDBDE;
+}
+
+</style>
+
+</head>
+
+<body>
+   
+      
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="image/unikl.png"width="50" height="25" border="0"></a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="homeStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li><a href="searchJob.html" style="color:yellow;"><span class="glyphicon glyphicon-search"></span> Search INTRA</a></li> 
+ <?php 
+ if ($total > 0){ ?>
+         
+        <li class="active"><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification <span class="badge"><?php echo $total; ?></span></a></li> <?php }else{ ?>
+
+        <li class="active"><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification</span></a></li> <?php } ?>
+
+        </li>
+
+        <li><a href="myResume.php" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Resume</a></li>
+        <li><a href="addCoverLetter.html" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Cover Letter</a></li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="profileStudent.php" style="color:yellow;"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="changePasswordStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
+            <li><a href="logout.php" style="color:yellow;"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+          </ul>
+    </div>
+  </div>
+</nav>
+
+<header>
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
+        <div class="banner">            
+                <img src="image/header.jpg" alt = "Ottawa" class = "banner">
+        </div>
+    </header>
+      
+
+ 
+
+  <div class="container">
+
+        <div class="row">
+          <p>&nbsp;</p>
+            <div class="col-md-8">
+              <div class="panel with-nav-tabs panel-primary">
+                <div class="">
+                <ul class="nav nav-tabs">
+<?php                  if ($count2 < 1) { ?>
+
+    <li><a href="notiIntraRequest.html" style="color:yellow;">INTRA Applications <span class="badge"></span></a></li>
+
+      <?php          } else { ?>
+
+<li><a href="notiIntraRequest.html" style="color:yellow;">INTRA Applications <span class="badge"> <?php echo $count2; ?></span></a></li>
+
+    <?php          } ?>
+
+                  
+
+<?php                  if ($count1 < 1) { ?>
+
+    <li><a href="notiIntraOffer.html" style="color:yellow;">INTRA Offer <span class="badge"></span></a></li>
+
+      <?php          } else { ?>
+
+<li><a href="notiIntraOffer.html" style="color:yellow;">INTRA Offer <span class="badge"> <?php echo $count1; ?></span></a></li>
+
+    <?php          } ?>
+
+ <?php                  if ($count3 < 1) { ?>
+
+    <li class="active"><a href="notiGlobalMobi.html">Global Mobilization</a></li>
+
+      <?php          } else { ?>
+
+<li class="active"><a href="notiGlobalMobi.html">Global Mobilization <span class="badge"> <?php echo $count3; ?></span></a></li>
+
+    <?php          } ?> 
+                </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+<br>
+       <table align="left" border="0" class="table table-striped">
+                   <tr> <th width='150'>From</th> <th width='400'>Title</th>  <th width='100'>Date</th></tr>
+
+<?php
+
+
+$studentId = ($_SESSION['student']);
+
+include ('Connections/connect.php');
+
+if ($result = $mysqli->query("SELECT tblapplymobilization.otherId,tblapplymobilization.mlocation,tblapplymobilization.mcgpa,tblapplymobilization.mdate,tblapplymobilization.mstatus,tblother.companyId,tblpartner.companyName,tblapplymobilization.studentId,tblapplymobilization.mId
+FROM tblother INNER JOIN tblapplymobilization ON tblapplymobilization.otherId = tblother.otherId
+INNER JOIN tblpartner ON tblother.companyId = tblpartner.companyUsername WHERE tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'interview' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'rejected' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'approved'ORDER BY STR_TO_DATE(tblapplymobilization.mdate, '%d/%m/%Y') DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    
+     
+
+    while($row = mysqli_fetch_array($result)) {
+
+      if ($row['mstatus'] == "Interview") {
+
+      echo "<tr>";
+      echo '<td >' . $row['companyName'] . '</td>';
+      echo '<td >' . '<a href="viewGlobalApplicationInterview.php?id=' . $row['mId'] . '"  >'  . 'Invitation to Global Mobilization interview' .'</a>' . '</td>';
+      echo '<td >' . $row['mdate'] . '</td>';
+      echo "</tr>";
+
+    } else if ($row['mstatus'] == "rejected") {
+
+      echo "<tr>";
+      echo '<td >' . $row['companyName'] . '</td>';
+      echo '<td >' . '<a href="viewGlobalApplicationReject.php?id=' . $row['mId'] . '"  >'  . 'Regard to Global Mobilization request application' .'</a>' . '</td>';
+      echo '<td >' . $row['mdate'] . '</td>';
+      echo "</tr>";
+
+    } else if ($row['mstatus'] == "approved") {
+
+      echo "<tr>";
+      echo '<td >' . $row['companyName'] . '</td>';
+      echo '<td >' . '<a href="viewGlobalApplicationApprove.php?id=' . $row['mId'] . '"  >'  . 'Regard to Global Mobilization request application' .'</a>' . '</td>';
+      echo '<td >' . $row['mdate'] . '</td>';
+      echo "</tr>";
+
+    } else {
+
+    }
+    
+  }
+}
+
+}
+
+?>       
+</table>
+
+</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i><span class="glyphicon glyphicon-menu-hamburger"></span>  Others Portal</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><span class="glyphicon glyphicon-triangle-right"></span><a href="http://www.unikl.edu.my/"> UniKL Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span><a href="http://www.miit.unikl.edu.my/"> UniKL MIIT Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="http://www.online.unikl.edu.my"> E-Citie Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="https://vle.unikl.edu.my/"> VLE Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="http://ir.unikl.edu.my/"> UniKL IR Portal</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+
+      </div>
+    
+
+
+
+  <footer align="center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; UniKl MIIT INTRA Management System (2016)</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body> 
+
+
+
+</html>
+
+<?php
+
+} else {
+  session_destroy();
+  header("location: login.php");
+  exit;
+
+  
+}
+
+?>

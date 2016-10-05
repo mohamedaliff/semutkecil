@@ -1,0 +1,759 @@
+<?php
+
+session_start();
+include ('Connections/connect.php');
+
+if(@$_SESSION['student']  ) {
+
+$studentId = ($_SESSION['student']);
+$total = null;
+$count1 = null;
+$count2 = null;
+$count3 = null;
+
+if ($total == 0) {
+     
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tblpartner.companyName,tblpartner.companyUsername,tblofferjob.offerid,tblofferjob.companyId,
+tblofferjob.studentId,tblofferjob.position,tblofferjob.itime,tblofferjob.ivenue,tblofferjob.information,tblofferjob.idate,tblofferjob.status,
+tblofferjob.offerdate FROM tblpartner INNER JOIN tblofferjob ON tblpartner.companyUsername = tblofferjob.companyId WHERE tblofferjob.studentId = '$studentId' AND tblofferjob.status = 'waiting' OR tblofferjob.status = 'interview' AND tblofferjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count1 = $mysqli->affected_rows;
+    
+}
+}
+
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tbljob.jobId,tblapplyjob.applyId,tblapplyjob.studentId,
+tblapplyjob.postId,tblapplyjob.position,tblapplyjob.jstatus,tblapplyjob.aDate FROM tbljob
+INNER JOIN tblapplyjob ON tbljob.jobId = tblapplyjob.postId
+WHERE tblapplyjob.jstatus = 'approved' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'rejected' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'interview' AND tblapplyjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count2 = $mysqli->affected_rows;
+
+    
+}
+}
+
+include ('Connections/connect.php');
+
+
+if ($result = $mysqli->query("SELECT tblapplymobilization.otherId,tblapplymobilization.mlocation,tblapplymobilization.mcgpa,tblapplymobilization.mdate,tblapplymobilization.mstatus,tblother.companyId,tblpartner.companyName,tblapplymobilization.studentId,tblapplymobilization.mId
+FROM tblother INNER JOIN tblapplymobilization ON tblapplymobilization.otherId = tblother.otherId
+INNER JOIN tblpartner ON tblother.companyId = tblpartner.companyUsername WHERE tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'interview' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'rejected' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'approved'"))
+    {
+  if ($result->num_rows != 0) {
+
+        $count3 = $mysqli->affected_rows;
+
+    
+}
+}
+
+$total = $count1 + $count2 + $count3;
+
+
+} else {
+
+  $total = 0;
+}
+
+  ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+   <title>UniKl MIIT INTRA Management System</title>
+     <link rel="icon" type="image/ico" href="image/favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    </style>
+
+    <style type="text/css">
+a {
+    color: #0254EB
+}
+a:visited {
+    color: #0254EB
+}
+a.morelink {
+    text-decoration:none;
+    outline: none;
+}
+.morecontent span {
+    display: none;
+    font-family: Georgia, serif;
+}
+.comment {
+    width: 700px;
+    background-color: #DBDBDE;
+    font-family: Georgia, serif;
+    margin: 10px;
+}
+.sub {
+    width: 700px;
+    background-color: #DBDBDE;
+    margin: 10px;
+}
+.title {
+    font-weight: bold;
+    font-family: Georgia, serif;
+    width: 700px;
+    background-color: #393D5C;
+    margin: 10px;
+}
+.post {
+    
+    width: 700px;
+    background-color: #B0E0E6;
+    margin: 10px;
+}
+table.scroll {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 0px solid black;
+}
+table.scroll1 {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 0px solid black;
+    background-color: white; 
+}
+table{
+
+  background-color: #DBDBDE;  
+}
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 200px;
+    line-height: 200px;
+    /* text-align: left; */
+}
+
+table.scroll tbody {
+    height: 700px;
+    width: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+table.scroll1 tbody {
+    height: 300px;
+    width: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+tbody { border: 0px dotted gray; }
+
+tbody td, thead th {
+    /* width: 20%; */ /* Optional */
+    border-right: 0px solid black;
+    /* white-space: nowrap; */
+}
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:left;
+}
+.badge {
+  background-color: red;
+
+}
+.error {
+    background-color: #F6CECE;
+}
+.tooltip1 {
+    position: relative;
+    display: inline-block;
+    border-bottom: none;
+}
+
+.tooltip1 .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    height: 130px;
+    background-color: #fcf8e3;
+    color: #8a6d3b;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    border-right: 1px solid #faebcc;
+    border-left: 1px solid #faebcc;
+    border-top: 1px solid #faebcc;
+    border-bottom: 1px solid #faebcc;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip1:hover .tooltiptext {
+    visibility: visible;
+}
+
+</style> 
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="image/unikl.png"width="50" height="25" border="0"></a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="homeStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li><a href="searchJob.html" style="color:yellow;"><span class="glyphicon glyphicon-search"></span> Search INTRA</a></li>
+
+ <?php 
+ if ($total > 0){ ?>
+         
+        <li><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification <span class="badge"><?php echo $total; ?></span></a></li> <?php }else{ ?>
+
+        <li><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification</span></a></li> <?php } ?>
+
+        </li>
+
+        <li><a href="myResume.php" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Resume</a></li>
+        <li><a href="addCoverLetter.html" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Cover Letter</a></li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="profileStudent.php" style="color:yellow;"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="changePasswordStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
+            <li><a href="logout.php" style="color:yellow;"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+          </ul>
+    </div>
+  </div>
+</nav>
+
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div align="center"> <img src="image/slide3.gif" alt = "Ottawa" class = "fill"></div>
+                <div class="carousel-caption">             
+                </div>
+            </div>
+            <div class="item">
+                <div align="center"> <img src="image/slide1.jpg" alt = "Ottawa" class = "fill"></div>
+                <div class="carousel-caption">             
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+
+    <!-- Page Content -->
+  
+
+  <div class="container"> 
+  <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Welcome to UniKL MIIT INTRA Management System </h1>
+                
+                <p>&nbsp;</p>
+             
+            </div>
+        </div>          
+<div class="row">
+  <p>&nbsp;</p>
+                    
+             
+
+                  <div class="col-lg-8">
+             
+      <ul class="nav nav-pills"  >
+        <li class="active"><a href="#important" data-toggle="tab" style="width:350px;height:50px;">MIIT Announcement</a></li>
+        <li ><a href="#intra" data-toggle="tab" style="width:350px;height:50px;">INTRA Advertisement</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade in active"  id="important">
+          <p>
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT * FROM tblanouncement WHERE type='Student'  OR type='All' ORDER BY STR_TO_DATE(tdate, '%d/%m/%Y') DESC , ttime DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='scroll'  border='0' align='left'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+if(is_null($row['fileType']) || $row['fileType'] == ""){
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else if($row['fileType'] == "image/png" || $row['fileType'] == "image/gif" || $row['fileType'] == "image/jpeg"){
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="center"><img src="uploads/'. $row['file'] .'" alt="Image" width="500"></div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else{
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[3] . '<br/>'. 'By '. $row[5] . ' - '. $row[1] . ', ' .$row[2].'</div>';
+echo '<div class="comment more" align="left">' . nl2br($row[4]) . '</div>';
+echo '<div class="comment more" align="left"><a href="uploads/' . $row['file'] . '" target="_blank" data-toggle="tooltip" title="Click to Download File" ><span class="glyphicon glyphicon-save"></span> ' . $row['file']. '&nbsp; </a></div>';
+echo "</td>";
+echo "</tr>";
+
+}
+
+
+
+
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+echo "</div>";
+}
+}
+
+
+?>
+        </div>
+        <div class="tab-pane fade"  id="intra">
+          <p>
+            <ul class="nav nav-pills"  >
+        <li class="active"><a href="#intra1" data-toggle="tab" style="width:350px;height:50px;">Industrial Training</a></li>
+        <li><a href="#other1" data-toggle="tab" style="width:350px;height:50px;">Global Mobilization</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade in active"  id="intra1">
+          <p>
+
+<?php  
+include ('Connections/connect.php');
+$studentId = ($_SESSION['student']);
+
+$result2 = $mysqli->query("SELECT * FROM tblstudent WHERE studentId=$studentId  ");
+if ($result2->num_rows != 0) {
+
+  while($row = mysqli_fetch_array($result2)) {
+
+  $cgpa1 = $row[7];
+
+if ($result = $mysqli->query("SELECT tbljob.jobId, tbljob.title, tbljob.position1, tbljob.description1, tbljob.requirement1, tbljob.mincgpa1, tbljob.alowance1, tbljob.status, tbljob.pdate, tbljob.companyId,tbljob.file,tbljob.fileType,tbljob.fileSize, tblpartner.companyName FROM tbljob INNER JOIN tblpartner ON tbljob.companyId = tblpartner.companyUsername WHERE tbljob.status = 'active' AND tbljob.mincgpa1 <= $cgpa1 ORDER BY STR_TO_DATE(tbljob.pDate, '%d/%m/%Y') DESC"))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='scroll' width='700' border='0' bgcolor='#FF00FF' align='left'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+        if(is_null($row['fileType']) || $row['fileType'] == ""){
+
+echo "<form id=\"Form".$row[0]."\" accept-charset='UTF-8'>";//DO THIS: ADD THIS
+echo "<input type='hidden' name='id' value='".$row[0]."'>";
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row['title'] . '<br/>'. 'By '. $row['companyName'] . ' - '. $row['pdate'] . '</div>';
+echo '<div  align="left" class="sub">' .' Position :' . $row['position1'] . '<br>' .'&nbsp;' .'&nbsp;' . '<a href="viewJobStudent.php?id=' . $row[0] . '"  >'  . 'View Details' .'</a>' . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else if($row['fileType'] == "image/png" || $row['fileType'] == "image/gif" || $row['fileType'] == "image/jpeg"){
+
+echo "<form id=\"Form".$row[0]."\" accept-charset='UTF-8'>";//DO THIS: ADD THIS
+echo "<input type='hidden' name='id' value='".$row[0]."'>";
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row['title'] . '<br/>'. 'By '. $row['companyName'] . ' - '. $row['pdate'] . '</div>';
+echo '<div class="comment more" align="center"><img src="uploads/'. $row['file'] .'" alt="Image" width="500"></div>';
+echo '<div  align="left" class="sub">' .' Position :' . $row['position1'] . '<br>' .'&nbsp;' .'&nbsp;' . '<a href="viewJobStudent.php?id=' . $row[0] . '"  >'  . 'View Details' .'</a>' . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else{
+
+echo "<form id=\"Form".$row[0]."\" accept-charset='UTF-8'>";//DO THIS: ADD THIS
+echo "<input type='hidden' name='id' value='".$row[0]."'>";
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row['title'] . '<br/>'. 'By '. $row['companyName'] . ' - '. $row['pdate'] . '</div>';
+echo '<div  align="left" class="sub">' .' Position :' . $row['position1'] . '<br>' .'&nbsp;' .'&nbsp;' . '<a href="viewJobStudent.php?id=' . $row[0] . '"  >'  . 'View Details' .'</a>' . '</div>';
+echo '<div class="comment more" align="left"><a href="uploads/' . $row['file'] . '" target="_blank" data-toggle="tooltip" title="Click to Download File" ><span class="glyphicon glyphicon-save"></span> ' . $row['file']. '&nbsp; </a></div>';
+echo "</td>";
+echo "</tr>";    
+
+}
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+echo "</div>";
+
+} else {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='error' width='700' border='0' bgcolor='#FF00FF' align='left'>";
+    echo "<tbody>";
+    echo '<tr>';
+    echo '<td>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'This system used smart CGPA filtering.' .'</div>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'There might be no record found based on your current CGPA' . '</div>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'Please contact INTRA Linkage Unit for further assistance.' . '</div>';
+    echo '</td>';
+    echo '</tr>';
+    echo "<tr>";
+    echo '<td>' . '&nbsp;' . '</td>';
+    echo "</tr>";
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
+    echo "</div>";
+}
+} 
+}
+}
+
+?>
+        </div>
+         <div class="tab-pane fade"  id="other1">
+          <p>
+<?php  
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tblother.otherId,tblother.othertitle,tblother.otherdescription,tblother.otherdate,tblother.otherstatus,tblother.otherrequirement,tblother.otherlocation,tblother.othercgpa,tblother.companyId,tblother.file,tblother.fileType,tblother.fileSize,tblpartner.companyName FROM tblother
+INNER JOIN tblpartner ON tblother.companyId = tblpartner.companyUsername WHERE otherstatus='active' ORDER BY STR_TO_DATE(otherdate, '%d/%m/%Y') DESC "))
+    {
+  if ($result->num_rows != 0) {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='scroll' width='700' border='0'  align='left'>";
+    echo "<tbody>";
+    
+    while($row = mysqli_fetch_array($result)) {
+
+        if(is_null($row['fileType']) || $row['fileType'] == ""){
+
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[1] . '<br/>'. 'By '. $row['companyName'] . ' at '. $row[3] . '</div>';
+echo '<div class="sub" align="left">' . nl2br($row[2]) . '</div>';
+echo '<div  align="left" class="sub"><b>' .' Location :'.'</b>' . $row['otherlocation'] . '<br>' .'&nbsp;' .'&nbsp;' . '<a href="viewOtherStudent.php?id=' . $row[0] . '" >'  . 'View Details' .'</a>' . '</div>';
+echo "</td>";
+echo "</tr>";
+
+}else if($row['fileType'] == "image/png" || $row['fileType'] == "image/gif" || $row['fileType'] == "image/jpeg"){
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[1] . '<br/>'. 'By '. $row['companyName'] . ' at '. $row[3] . '</div>';
+echo '<div class="comment more" align="center"><img src="uploads/'. $row['file'] .'" alt="Image"  width="500"></div>';
+echo '<div class="sub" align="left">' . nl2br($row[2]) . '</div>';
+echo '<div  align="left" class="sub"><b>' .' Location :'.'</b>' . $row['otherlocation'] . '<br>' .'&nbsp;' .'&nbsp;' . '<a href="viewOtherStudent.php?id=' . $row[0] . '" >'  . 'View Details' .'</a>' . '</div>';
+echo "</td>";
+echo "</tr>";    
+
+
+}else{
+
+echo "<tr>";
+echo "<td>";
+echo '<div  class="title bg-primary" align="left">' . $row[1] . '<br/>'. 'By '. $row['companyName'] . ' at '. $row[3] . '</div>';
+echo '<div class="sub" align="left">' . nl2br($row[2]) . '</div>';
+echo '<div  align="left" class="sub"><b>' .' Location :'.'</b>' . $row['otherlocation'] . '<br>' .'&nbsp;' .'&nbsp;' . '<a href="viewOtherStudent.php?id=' . $row[0] . '" >'  . 'View Details' .'</a>' . '</div>';
+echo '<div class="comment more" align="left"><a href="uploads/' . $row['file'] . '" target="_blank" data-toggle="tooltip" title="Click to Download File" ><span class="glyphicon glyphicon-save"></span> ' . $row['file']. '&nbsp; </a></div>';
+echo "</td>";
+echo "</tr>"; 
+
+}
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+echo "</div>";
+} else {
+
+    echo "<div class='panel panel-warning' style='width:98%;'>";
+    echo "<div class='panel-body'>";
+    echo "<table class='error' width='700' border='0' bgcolor='#FF00FF' align='left'>";
+    echo "<tbody>";
+    echo '<tr>';
+    echo '<td>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'Nothing to display' . '</div>';
+    echo '</td>';
+    echo '</tr>';
+    echo "<tr>";
+    echo '<td>' . '&nbsp;' . '</td>';
+    echo "</tr>";
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
+    echo "</div>";
+}
+}
+
+
+?>
+         
+</div>
+    </div></div>
+
+
+</div></div>
+            <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i><span class="glyphicon glyphicon-calendar"></span>&nbsp;<?php echo (date("d/m/Y"));
+?>&nbsp;<?php echo (date("h:i:a"));
+?></h4>
+                    </div></div>
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i><span class="glyphicon glyphicon-bell"></span> Upcoming Interview</h4>
+                    </div>
+                    <div class="panel-body">
+
+<?php
+
+include ('Connections/connect.php');
+$studentId = ($_SESSION['student']);
+
+$result3 = $mysqli->query("SELECT
+tblinterview.time AS itime,
+tblinterview.venue AS ivenue,
+tblinterview.details AS idetail,
+date_format(str_to_date(tblinterview.idate, '%d/%m/%Y'), '%d/%m/%Y') AS indate,
+tblpartner.companyName AS cname
+FROM
+tblinterview
+INNER JOIN tbljob ON tblinterview.postId = tbljob.jobId
+INNER JOIN tblpartner ON tbljob.companyId = tblpartner.companyUsername
+INNER JOIN tblapplyjob ON tbljob.jobId = tblapplyjob.postId
+WHERE
+tblapplyjob.jstatus = 'interview confirmed' AND tblinterview.studentId=$studentId
+UNION
+SELECT
+tblofferjob.itime AS itime,
+tblofferjob.ivenue AS ivenue,
+tblofferjob.information AS idetail,
+date_format(str_to_date(tblofferjob.idate, '%d/%m/%Y'), '%d/%m/%Y') AS indate,
+tblpartner.companyName AS cname
+FROM tblofferjob 
+INNER JOIN tblpartner ON tblpartner.companyUsername = tblofferjob.companyId
+WHERE
+tblofferjob.status = 'interview confirmed' AND tblofferjob.studentId=$studentId ORDER BY indate ASC ");
+
+
+
+if ($result3->num_rows != 0) {
+
+    echo '<table class="scroll1">';
+
+  while($row = mysqli_fetch_array($result3)) {
+
+
+                    $idate = $row['indate'];
+                    $today = (date("d/m/Y"));
+
+                    $date = str_replace('/', '-', $idate);
+                    $indate =  date('Y-m-d', strtotime($date));
+
+                    $date1 = str_replace('/', '-', $today);
+                    $curdate = date('Y-m-d', strtotime($date1));
+
+                        if($indate >= $curdate){
+
+
+                        echo '<tr>';
+                        echo '<td><div class="tooltip1"><span style="text-align:left;" class="tooltiptext">Company Name: '.$row['cname'].'<br>Date:' . $idate  .'<br>Time:'.$row['itime'].'<br>Venue:'.$row['ivenue'].'<br>More Info:'.$row['idetail'].'</span><span class="glyphicon glyphicon-triangle-right"></span><a style="color:#8a6d3b;">' . $idate.'&nbsp;- Interview with '. $row['cname'].'</a></div></td>';
+                        echo '</tr>';
+                    } else {
+                        //if date is passed
+                    }
+                    }
+        echo '</table>';
+                   
+                }
+
+?>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i><span class="glyphicon glyphicon-menu-hamburger"></span>  Others Portal</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><span class="glyphicon glyphicon-triangle-right"></span><a href="http://www.unikl.edu.my/"> UniKL Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span><a href="http://www.miit.unikl.edu.my/"> UniKL MIIT Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="http://www.online.unikl.edu.my"> E-Citie Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="https://vle.unikl.edu.my/"> VLE Portal</a></p>
+                        <p><span class="glyphicon glyphicon-triangle-right"></span> <a href="http://ir.unikl.edu.my/"> UniKL IR Portal</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+
+ </div>
+        <!-- Marketing Icons Section -->
+
+        <!-- /.row -->
+
+        <!-- Portfolio Section -->
+       
+
+        <!-- Footer -->
+        <footer align="center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; UniKl MIIT INTRA Management System (2016)</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+
+
+<script>
+var $table = $('table.scroll'),
+    $bodyCells = $table.find('tbody tr:first').children(),
+    colWidth;
+
+// Adjust the width of thead cells when window resizes
+$(window).resize(function() {
+    // Get the tbody columns width array
+    colWidth = $bodyCells.map(function() {
+        return $(this).width();
+    }).get();
+    
+    // Set the width of thead columns
+    $table.find('thead tr').children().each(function(i, v) {
+        $(v).width(colWidth[i]);
+    });    
+}).resize();
+</script>
+<script>
+var $table = $('table.scroll1'),
+    $bodyCells = $table.find('tbody tr:first').children(),
+    colWidth;
+
+// Adjust the width of thead cells when window resizes
+$(window).resize(function() {
+    // Get the tbody columns width array
+    colWidth = $bodyCells.map(function() {
+        return $(this).width();
+    }).get();
+    
+    // Set the width of thead columns
+    $table.find('thead tr').children().each(function(i, v) {
+        $(v).width(colWidth[i]);
+    });    
+}).resize();
+</script>
+</html>
+
+<?php
+
+} else {
+  session_destroy();
+  header("location: login.php");
+  exit;
+
+  
+}
+
+?>
+

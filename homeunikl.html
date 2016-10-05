@@ -1,0 +1,1303 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Mosaddek">
+		<meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+		<link rel="shortcut icon" href="img/favicon.png">
+		<title>Student Portal</title>
+		<!-- Bootstrap core CSS -->
+		<link href="logon/bootstrap.min.css" rel="stylesheet">
+		<link href="logon/bootstrap-reset.css" rel="stylesheet">
+		<!--external css-->
+		<link href="logon/font-awesome.css" rel="stylesheet" />
+		<link href="logon/bootstrap-fullcalendar.css" rel="stylesheet" />
+		<!--link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+		<link rel="stylesheet" href="css/owl.carousel.css" type="text/css"-->
+		<!-- Custom styles for this template -->
+		<link href="logon/style.css" rel="stylesheet">
+		<link href="logon/style-responsive.css" rel="stylesheet" />
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+		<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+		
+		<script src="logon/jquery-1.9.1.min.js"></script>
+
+		<style>
+			.ui-autocomplete .ui-menu .ui-menu-item a:hover,
+			.ui-autocomplete .ui-menu-item .ui-state-focus,
+			.ui-autocomplete .ui-menu .ui-menu-item a:active
+			{
+			    background: #ff8279;
+			    color: #fff;
+			}
+			
+			.ui-autocomplete-category
+			{
+				font-weight: bold;
+				padding: .2em .4em;
+				margin: .8em 0 .2em;
+				line-height: 1.5;
+			}
+		</style>
+	
+		<style>
+		    #overlay {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    bottom: 0;
+			    right: 0;
+			    background: #000;
+			    opacity: 0.8;
+			    filter: alpha(opacity=80);
+			}
+			
+			#loading {
+			    width: 50px;
+			    height: 57px;
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin: -28px 0 0 -25px;
+			}
+	
+		    #overlay2 {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    bottom: 0;
+			    right: 0;
+			    background: #000;
+			    opacity: 0.8;
+			    filter: alpha(opacity=80);
+			}
+			
+			#loading2 {
+			    width: 480px;
+			    height: 320px;
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin: -160px 0 0 -240px;
+			}
+			
+			.alt.blue-bg {
+			    background: #5fccf4;
+			}
+			
+			.modal-dialog-hats
+			/*.modal .modal-dialog*/
+			{
+		    	width: 400px;
+			}
+		</style>		
+	</head>
+	<body>
+		<div id="token" style="display: none;">52243113512-9gPaLJuvIaFgkJWceddSRywgC3I</div>
+		<div id="username" style="display: none;">52243113512</div>
+		<div id="currentSemesterCode" style="display: none;"></div>
+
+		<!--header start-->
+		<header class="header white-bg">
+			<div class="sidebar-toggle-box">
+				<div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
+			</div>
+			<!--logo start-->
+			<a href="index.html" class="logo" >PORTAL</span></a>
+			<!--logo end-->
+			<div class="top-nav">
+				<ul class="nav pull-right top-menu">
+					
+					<!-- user login dropdown start-->
+					<li class="dropdown">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="username" id="usernameDisplay">Option</span> <b class="caret"></b> </a>
+						<ul class="dropdown-menu extended logout">
+							<div class="log-arrow-up"></div>
+							<li><a href="signout.php"><i class="fa fa-key"></i> Sign Out</a></li>
+						</ul>
+					</li>
+					<!-- user login dropdown end -->
+				</ul>
+			</div>
+		</header>
+		<!--header end-->
+
+			<!--sidebar start-->
+			<aside>
+				<div id="sidebar"  class="nav-collapse ">
+					<!-- sidebar menu start-->
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li class="sub-menu">
+							<a href="javascript:;" >
+							<i class="fa fa-shield"></i>
+							<span>ECITIE Online</span>
+							</a>							
+							<ul class="sub">
+							<li><a href="/message.htm" target="_blank">Message</a></li>
+								<li class="sub-menu">
+									<a href="javascript:;" ><span>Academic</span></a>
+									<ul class="sub">
+										<li><a href="/stud-profile.htm?action=viewProfile" target="_blank">My Profile</a></li>
+										<li><a href="/timetable.htm" target="_blank">My Timetable</a></li>
+										<li><a href="/assessment.htm" target="_blank">My Subject</a></li>
+										<li><a href="/studAttendance.htm" target="_blank">My Attendance</a></li>
+										<li><a href="/examSchedule.htm" target="_blank">Exam Slip</a></li>
+										<li><a href="/result.htm" target="_blank">My Result</a></li>
+										<li><a href="/semesterRegistration.htm" target="_blank">Semester Registration</a></li>
+										<li><a href="/subjectRegistration.htm" target="_blank">Subject Registration</a></li>
+										<li><a href="/studEvaluation.htm" target="_blank">Evaluation</a></li>										
+									</ul>
+								</li>
+								<li class="sub-menu">
+									<a href="javascript:;"><span>SDCL</span></a>
+									<ul class="sub">
+										<li><a target="_blank" href="/stud-hostel.htm">My Residence Info</a></li>
+										<li><a href="/hostelRegistration.htm" target="_blank">Hostel Registratiion</a></li>
+										<li>
+											<a href="/GHOCS/index.htm?tokenID=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I" target="_blank" >GHOCS</a>
+											<!--
+												<a href="#" onclick="alert('HOCS temporarily under maintenance until further notice. Thank you.');" >GHOCS</a>
+											-->
+										</li>
+										<li><a target="_blank" href="/stud-loan.htm">My Loan</a></li>
+										<li><a target="_blank" href="/stud-insurance.htm?action=insView">My Insurance</a></li>										
+										<li><a target="_blank" href="/counselling.htm">Counselling</a></li>										
+										<li><a target="_blank" href="/evoting">E-Voting</a></li>
+										
+									</ul>
+								</li>
+								
+								<li class="sub-menu">
+									<a href="javascript:;"><span>Finance</span></a>
+									<ul class="sub">
+										<li><a href="/ledger.htm?action=invoice" target="_blank">My Ledger</a></li>
+									</ul>
+								</li>								
+								<!--li><a  href="#">About ECITIE Online</a></li-->
+							</ul>
+						</li>
+						<li class="sub-menu">
+							<a href="javascript:;" >
+							<i class="fa fa-user-md"></i>
+							<span>ServiceDesk</span>
+							</a>
+							<ul class="sub">
+								<li><a  href="https://portal.unikl.edu.my/helpdesk/helpdesk?tokenid=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I" target="_blank">My ServiceDesk</a></li>
+								<!--li><a  href="#">About ServiceDesk</a></li-->
+							</ul>
+						</li>
+						<li class="active"><a class="" href="http://elearn.unikl.edu.my/login/index.php" target="_blank"><i class="fa fa-pencil"></i><span>E-Learning</span> </a> </li>
+						<li class="sub-menu">
+							<a href="javascript:;">
+							<i class="fa fa-envelope"></i> 
+							<span>Student E-Mail</span></a>
+							<ul class="sub">
+								<li><a href="#" data-toggle="modal" data-target="#firstTimeLoginModal" id="firstTimeLink">First Time Login</a></li>
+								<li>
+			                  	<a href="#">Reset Password</a>
+			                  		<ul class="sub">
+				                        <li><a href="#" data-toggle="modal" data-target="#alternativeEmailModal">Alternative E-Mail</a></li>
+				                        <li><a href="#" data-toggle="modal" data-target="#ecitieMessageModal">ECITIE Message</a></li>
+				                        <li><a href="http://portal.unikl.edu.my/helpdesk/addRequestDirect?tokenid=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I" target="_blank">Helpdesk</a>
+			                        </li>
+			                  		</ul>
+					            </li>
+								<li>
+									<a href="#">How to Access E-Mail</a>
+									<ul class="sub">
+										<li><a href="http://portal.microsoftonline.com" target="_blank">Web (Office O365)</a></li>
+										<li>
+											<a href="#">Phone (Setup Instruction)</a>
+											<ul class="sub">
+												<li><a href="https://online.unikl.edu.my/StudentEmail/setupEmailAndroid.htm" target="_blank">Android</a>
+												<li><a href="https://online.unikl.edu.my/StudentEmail/setupEmailIOS.htm" target="_blank">IOS (Iphone)</a>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="sub-menu">
+							<a href="javascript:;" >
+							<i class="fa fa-book"></i>
+							<span>Knowledge</span>
+							</a>
+							<ul class="sub">
+								<li><a href="http://library.unikl.edu.my/equip-unikl/custom/home.jsp" target="_blank">Library WebOPAC</a></li>
+								<li><a target="_black" href="http://ir.unikl.edu.my/jspui/password-login?token=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I">Institutional Repository</a></li>
+							</ul>
+						</li>
+						<li class="active"><a href="#" class="" onclick="startGuide()"><i class="fa fa-question"></i><span>Guide</span></a></li>
+						<li class="active"><a href="/doc/How_to_use_ECITIE_online_rev_2.1_A_Oct2010_(students).pdf" class="" target="_blank"><i class="fa fa-question"></i><span>How To Use E-CITIE</span></a></li>						
+					</ul>
+					<!-- sidebar menu end-->
+				</div>
+			</aside>
+			<!--sidebar end-->
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper">
+				<!--main content goes here-->
+				<div class="row">
+					<div class="col-lg-12" id="weekCalendar">
+						<section class="panel">
+							<header class="panel-heading alt blue-bg">
+								<span style="color:white;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendar</span>
+								<span class="tools pull-right">
+									<a href="javascript:;" class="fa fa-chevron-down" style="color:white;"></a>
+								</span>
+							</header>
+							<div class="panel-body">
+								<div class="box-1">
+									<div id="calendar" class="has-toolbar"></div>
+								</div>
+							</div>
+						</section>
+					</div>
+					<div class="col-lg-4" id="summaries">
+						<!--Summaries-->
+						<aside class="profile-nav alt green-border">
+							<section class="panel">
+								<div class="user-heading alt blue-bg">
+									<!--span style="color:white"><i class="fa fa-list"></i>&nbsp;&nbsp;Summaries</span-->
+									<!--a href="#"><img id="profilePhoto" alt="avatar" src="/viewImage.htm?name=52243113512" style="width: 100px; height: 100px"></a-->
+									<a href="#">
+									<!--<img alt="" src="/StaffDirectory-portlet/viewImage?staffId=$user.getScreenName()" style="width: 100px; height: auto">
+									-->
+									<!-- MASHITAH EDIT START -->
+									<iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
+									<form id="uploadPhotoForm" method="POST" name="uploadPhotoForm" 
+										enctype="multipart/form-data" action="uploadStaffProfilePhoto" 
+										target="uploader_iframe">
+										<div id="profilePhotoContainer"><img id="profilePhoto" alt="avatar" src="getStaffProfilePhoto?staffId=52243113512" 
+											onclick="clickUploadPhoto()" style="width: 100px; height: 100px">
+											<div id="uploadIcon" style="display:none; height:100px; width:100px; color:white" onclick="clickUploadPhoto()">
+												<i id="uploadIcon" class="fa fa-camera-retro" style="font-size:50px; line-height: 100px; text-align:center;"></i>
+												<div style="position:relative; bottom:25px; text-align:center">UPLOAD</div>
+											</div>
+											<!-- <i id="uploadIcon" class="fa fa-camera-retro" style="font-size:50px; line-height: 80px; text-align:center; width: 100px; height: 80px; display:none"></i>
+											<div id="uploadText" style="height:20px; display:none"><br/>UPLOAD PHOTO</div>
+										 -->
+											</div>
+										<!-- <img id="profilePhoto" alt="avatar" src="getStaffProfilePhoto?staffId=52243113512" 
+											onclick="clickUploadPhoto()" style="width: 100px; height: 100px"
+											onMouseOver="showUploadIcon()" onMouseLeave="hideUploadIcon()"> -->
+										<input type="file" name="photoFile" style="display:none" id="photoInput"/>
+										<input type="hidden" name="action" value="uploadStaffProfilePhoto" />
+										<input type="hidden" name="staffId" value="52243113512" />
+									</form>
+									<!-- MASHITAH EDIT END -->										
+									</a>
+									<h1 id="summaryName">MOHAMED ALIFF BIN ROSLI</h1>
+									<div>52243113512 - MIIT</div>						
+								</div>
+								<ul class="nav nav-pills nav-stacked">
+									<li><span id="academicWeek" style="padding-left:20px;"></span></li>
+									<li><a href="/message.htm" target="_blank"> <i class="fa fa-envelope"></i> New Messages <span class="label label-warning pull-right r-activity" id="newMessage"></span></a></li>
+									<li><a href="/assessment.htm" target="_blank" id="currentSemesterCreditUrl"> <i class="fa fa-clock-o"></i> Current Semester Credit <span class="label label-primary pull-right r-activity" id="currentSemesterCredit"></span></a></li>
+									<!--li><a href="/studAttendance.htm" target="_blank" id="absentClassUrl"> <i class="fa fa-building-o"></i> Class Absenteeism <span class="label  label-info pull-right r-activity" id="absentClass"></span></a></li-->
+									<li><a href="/assessment.htm?action=studyPlanner" target="_blank"> <i class="fa fa-book"></i> Overall Credit Completed <span class="label label-warning pull-right r-activity" id="creditCompleted">63 / 121</span></a></li>
+									<li><a href="/ledger.htm?action=info" target="_blank"> <i class="fa fa-dollar"></i> Total Outstanding Amount (MYR) <span class="label label-primary pull-right r-activity" id="totalOutstanding"></span></a></li>
+								</ul>
+							</section>
+						</aside>
+					</div>
+					<div class="col-lg-8">
+						<!--widget start-->
+                           <section class="panel">
+                           	<header class="panel-heading alt blue-bg"> <span style="color:white"><i class="fa fa-search"></i>&nbsp;&nbsp;Smart Search</span> </header>
+                           	<div class="panel-body" id="searchStudentPortalPanelBody">
+                                 <div class="form-group">
+                                     <div class="col-lg-12">
+                                     	<div class="input-group m-bot15">
+                                     		<div class="iconic-input right">
+	                                           	<a href="#" onclick="$('#searchStudentPortal').val(''); $('#searchStudentPortalTerm').val(''); $('#searchStudentPortal').focus();">
+	                                           		<i style="color:#777; font-style: normal;">X</i>
+	                                           	</a>
+	                                           	<input type="hidden" id="searchStudentPortalTerm" value="" />
+	                                           	<input type="text" class="form-control" id="searchStudentPortal" placeholder="Search Student Portal" onfocus="initSearchStudentPortal()">                                            	
+                                         	</div>
+                                           <span class="input-group-btn">
+                                           	<button type="button" class="btn btn-white" id="searchHelp"><i class="fa fa-question"></i></button>
+                                           </span>
+                                         </div>
+                                     </div>
+                                 </div>
+                           	</div>
+                           </section>
+                    </div>
+					<div class="col-lg-8">
+						<section class="panel" id="announcementEvent">
+							<header class="panel-heading alt blue-bg"> <span style="color:white"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;Announcements</span> </header>
+							
+							<header class="panel-heading tab-bg-dark-navy-blue">
+								<ul class="nav nav-tabs nav-justified">
+									<li class="active">
+										<a href="#unikl" data-toggle="tab">
+											UniKL Announcements (20)
+										</a>
+									</li>
+									<li>
+										<a href="#campus" data-toggle="tab">
+											MIIT Announcements (57)
+										</a>
+									</li>
+									<!--li>
+										<a href="#events" data-toggle="tab">
+											Events
+										</a>
+									</li--->
+								</ul>
+							</header>
+							<div class="panel-body">
+								<div class="tab-content tasi-tab">
+									<div class="tab-pane active" id="unikl">
+										<div class="timeline-messages box-2" id="uniklAnnouncements" style="height:300px; overflow : auto;">
+											<!-- UniKL Announcements -->
+											
+												<!--div class="msg-time-chat" id="announcement0" onclick="openAnnouncementDetl('0');"-->
+												<div class="msg-time-chat" id="announcementAAMkAGZjNjg1ODlmLWRiZDYtNGNiYi1iMjc2LWNjOWNhNTJmMGY0NwBGAAAAAACqx3a4SZ4eT6z9FHLHTJvZBwB62wwcQubRQptlEE2/NeviAAAAAAEMAAB62wwcQubRQptlEE2/NeviAADsL8NJAAA=" onclick="loadAnnouncementDetail('AAMkAGZjNjg1ODlmLWRiZDYtNGNiYi1iMjc2LWNjOWNhNTJmMGY0NwBGAAAAAACqx3a4SZ4eT6z9FHLHTJvZBwB62wwcQubRQptlEE2/NeviAAAAAAEMAAB62wwcQubRQptlEE2/NeviAADsL8NJAAA=');">
+													<a href="#" class="message-img">3:52 PM</a>
+													<div class="message-body msg-in">
+													    <span class="arrow"></span>
+													    <div class="text">
+													        <p class="attribution"><a href="#">UniKL Student Facilities & Services Feedback Survey 2015</a></p>
+													        <p>  Click HERE To Participate</p>
+													    </div>
+													</div>
+												</div>
+											
+												
+												<!--div class="msg-time-chat" id="announcement56" onclick="openAnnouncementDetl('56');"-->
+												<div class="msg-time-chat" id="announcement201412-001665660" onclick="loadAnnouncementDetail('201412-001665660');">
+													<a href="#" class="message-img">1 Dec 14</a>
+													<div class="message-body msg-in">
+													    <span class="arrow"></span>
+													    <div class="text">
+													        <p class="attribution"><a href="#">PRE-REGISTRATION SUBJECT APPLICATION FOR JANUARY 2015 SEMESTER</a></p>
+													        <p>Assalammualaikum and good day to all UniKL MSI students,  PRE-REGISTRATION SUBJECT APPLICATION FO ...</p>
+													    </div>
+													</div>
+												</div>
+											
+										</div>
+									</div>																	
+								</div>
+							</div>
+							
+														
+						</section>
+					</div>
+				</div>
+			</section>
+		</section>
+
+		<!-- Staff Output Profile -->
+		<div aria-hidden="true" aria-labelledby="searchStudentPortalModalLabel" role="dialog" tabindex="-1" id="searchStudentPortalModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+						<h4 class="modal-title">Search Result</h4>
+					</div>
+					<div class="modal-body" id="searchResultBody">
+						<div id="searchStudentPortalText"></div>
+						<div>&nbsp;</div>
+						<button type="button" class="btn btn-success" onclick="$('#searchStudentPortalModal').modal('hide');">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Search help-->
+		<div aria-hidden="true" aria-labelledby="searchHelpModalLabel" role="dialog" tabindex="-1" id="searchHelpModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+						<h4 class="modal-title">How To Search</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							<p>You can search the following items :</p>
+							<ol>
+								<li>Lecturer / tutor / instructor by name or Staff ID - partial name can be searched eg Mohd</li>
+								<li>Search announcements</li>
+								<li>Search sidebar menu eg "My Timetable"</li>
+							</ol>
+							<p>Search is not case-sensitive so you can search for mohd / MOHD / Mohd</p>
+							<button type="button" class="btn btn-success" onclick="$('#searchHelpModal').modal('hide');">Got It</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Announcement details -->
+		<div aria-hidden="true" aria-labelledby="announcementDetailModalLabel" role="dialog" tabindex="-1" id="announcementDetailModal" class="modal fade">
+			<div class="modal-dialog" style="width: 90%;">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					<h4 class="modal-title"><span id="announcementDetailTitle"></span></h4>
+				</div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							<div id="announcementDetailText"></div>
+							<div>&nbsp;</div>
+							<button type="button" class="btn btn-success" onclick="$('#announcementDetailModal').modal('hide');">Close</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- UniKL announcement details -->
+		<div aria-hidden="true" aria-labelledby="uniklAnnouncementDetailModalLabel" role="dialog" tabindex="-1" id="uniklAnnouncementDetailModal" class="modal fade">
+			<div class="modal-dialog" style="width: 90%;">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					<h4 class="modal-title"><span id="uniklAnnouncementDetailTitle"></span></h4>
+				</div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							<div id="uniklAnnouncementDetailText"></div>
+							<div>&nbsp;</div>
+							<button type="button" class="btn btn-success" onclick="$('#uniklAnnouncementDetailModal').modal('hide');">Close</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- IR -->
+		<div aria-hidden="true" aria-labelledby="irModalLabel" role="dialog" tabindex="-1" id="irModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<span id="irContent" /></span>
+				</div>
+			</div>
+		</div>
+
+		<!-- First Time Modal -->
+		<div aria-hidden="true" aria-labelledby="firstTimePortalModalLabel" role="dialog" tabindex="-1" id="firstTimePortalModal" class="modal fade">
+			<div class="modal-dialog-firsttime">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+						<h4 class="modal-title">Welcome to new Student Portal</h4>
+					</div>
+					<div class="modal-body">
+						<p>Welcome to our new Student Portal. To know more about the new Student Portal, click Guide below to, otherwise click Got It to start using the new Student Portal.</p>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">								
+								<button type="button" class="btn btn-success" onclick="startGuide()">Guide</button>
+								<button type="button" class="btn btn-success" onclick="$('#firstTimePortalModal').modal('hide');">Got It</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Prompt reset password for student using IC number as password -->
+		<div aria-hidden="true" aria-labelledby="passwordIcNumberLabel" role="dialog" tabindex="-1" id="passwordIcNumberModal" class="modal fade">
+			<div class="modal-dialog modal-dialog-center">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!--button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button-->
+						<h4 class="modal-title">Change Password</h4>
+					</div>
+					<div class="modal-body">
+						<p>We have detected that you're still using your IC number as password.</p>
+						<div>&nbsp;</div>
+						<p>You MUST change your password immediately to prevent unauthorised access using your account.</p>
+						<div>&nbsp;</div>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<button type="button" class="btn btn-success" onclick="window.location.assign('https://online2.unikl.edu.my/ResetPassword/index.htm?tokenId=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I')">Change My Password</button>
+								<!--button type="button" class="btn btn-success" onclick="$('#passwordIcNumberModal').modal('hide');">I'll Do It Later</button-->
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- HATS Profiling modal -->
+		<div aria-hidden="true" aria-labelledby="hatsProfilingLabel" role="dialog" tabindex="-1" id="hatsProfilingModal" class="modal fade">
+			<div class="modal-dialog modal-dialog-hats" style="width:600px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+						<h4 class="modal-title" id="detailTitle">UniKL-Hats Profiling</h4>
+					</div>
+					<div class="modal-body">									
+						<input type="hidden" id="hatsInitialStatus" />
+						<span id="hatsInitialStatus2">
+							<!--p>You have yet to complete your questionnaire.</p-->
+							<h4 style="text-align: center;"><b>OBJECTIVE OF THE HA QUESTIONNAIRE & QCT</b></h4>
+							<p>&nbsp;</p>
+							<p style="text-align: center;"><b>HA QUESTIONNAIRE</b></p>
+							<p>To understand what you enjoy doing and your work / tasks 
+							preferences and tendencies in your present environment, under normal circumstances</p>
+							<p>&nbsp;</p>
+							<p style="text-align: center;"><b>QCT QUESTIONNAIRE</b></p>
+							<p>QCT is a tool that analyses the ability of an individual to
+							combine logic with numerical reasoning and verbal 
+							reasoning in order to solve problems and make decisions.</p>
+							<p>&nbsp;</p>
+					  	</span>
+					  	<span id="hatsInitialStatus3">
+						  	<p>Well done. You have completed your questionnaire.</p>
+							<!--div>&nbsp;</div-->
+							<div id="viewHatsSummary"></div>
+							<!-- p>Click on the following reports :</p>
+							<div>&nbsp;</div>
+							<ol>
+								<li><p><a href="#">Career Development</a></p></li>
+								<li><p><a href="#">Traits & Definitions</a></p></li>
+								<li><p><a href="#">Your Greatest Strength</a></p></li>
+								<li><p><a href="#">Behavioral Competency Analysis</a></p></li>
+							</ol-->
+							<p>Click <a href="#" id="hatsReportUrl" target="_blank">HERE</a> to get your report.</p>
+							<div>&nbsp;</div>
+					   	</span>
+					   	<span id="hatsInitialStatus5">
+							<p>Your questionnaire is currently being processed. Please have a look again after a few minutes.</p>
+					  	</span>
+					  	<div style="text-align: center">
+					   	<span id="hatsInitialStatus4">
+					   		<button type="button" class="btn btn-success" onclick="startInitialHats()">Start Your Questionnaire</button>
+					   	</span>
+						<button type="button" class="btn btn-success" onclick="$('#hatsProfilingModal').modal('hide');">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+			<div id="alternativeEmailModal" class="modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Send New Password to Alternative E-Mail</h4>
+				</div>
+				<div class="modal-body">
+					
+							<br/>Send your new password to areleft91@gmail.com<!-- alternative e-mail according to ECITIE profile.  -->
+								
+							
+					<div class="modalBuffer">
+						<br/><br/>
+						This operation may take 1-2 minutes. 
+						<br/><font style="font-weight:bold">Please do not refresh or close tab.</font> 
+						<img src="img/wait.gif" />						
+					</div>
+					<iframe name="alternativeEmailFrame" style="height:10px; width:100%; border:none;">
+					</iframe>
+					
+					
+				</div>
+				<div class="modal-footer">
+					
+						<button id="altEmailBtn" class="btn btn-info btn-round btn-sm" value="Send" id="submitAltEmailBtn">
+							Send <i class="fa fa-envelope-o"></i>
+						</button>
+					
+					<button type="button" class="btn btn-round btn-danger btn-sm"
+						data-dismiss="modal">Close</button>								
+				</div>
+			</div>
+		</div>
+	</div>
+      		<div id="ecitieMessageModal" class="modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Send New Password to ECITIE Message</h4>
+				</div>
+				<div class="modal-body">
+					
+							<br/>Send your new password to ECITIE message.
+							<br/>
+					<div class="modalBuffer">
+						<br/><br/>
+						This operation may take 1-2 minutes. 
+						<br/><font style="font-weight:bold">Please do not refresh or close tab.</font> 
+						<img src="img/wait.gif" />						
+					</div>
+					<iframe name="testframe" id="testframe" style="height:10px; width:100%; border:none">
+					</iframe>
+				</div>
+				<div class="modal-footer">
+					<button id="ecitieMsgBtn" class="btn btn-round btn-info btn-sm" value="Send" >
+						Send <i class="fa fa-envelope-o"></i>
+					</button>
+					<button type="button" class="btn btn-round btn-success btn-sm"
+						onclick ="window.open('/message.htm')">
+						Open Message <i class="fa fa-external-link"></i>
+					</button>
+					<button type="button" class="btn btn-round btn-danger btn-sm"
+						data-dismiss="modal">Close</button>
+					<!-- <form id="sendPasswordECITIEMessageForm" action="/StudentEmail/sendPasswordECITIEMessage.htm" target="testframe" method="POST">
+						<input type="hidden" name="tokenID" value="52243113512-9gPaLJuvIaFgkJWceddSRywgC3I" />
+						<button type="submit" class="btn btn-round btn-info btn-sm" value="Send" >
+							Send <i class="fa fa-envelope-o"></i>
+						</button>
+						<button type="button" class="btn btn-round btn-success btn-sm"
+							onclick ="window.open('/message.htm')">
+							Open Message <i class="fa fa-external-link"></i>
+						</button>
+						<button type="button" class="btn btn-round btn-danger btn-sm"
+						data-dismiss="modal">Close</button>
+					</form>
+					 -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+      		<div id="firstTimeLoginModal" class="modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">First Time Login</h4>
+				</div>
+				<div class="modal-body">
+					
+						Login to your e-mail using the following e-mail address and password:
+						<br/><br/>
+						<table>
+							<tr>
+								<td><b>E-Mail </b></td>
+								<td>aliff.rosli@s.unikl.edu.my</td>
+							</tr>
+							<tr>
+								<td><b>Password </b></td>
+								<td>Hamzah1561</td>
+							</tr>
+						</table>
+						<br/><br/>										
+					
+					
+					
+				</div>
+				<div class="modal-footer">
+					
+						<button class="btn btn-round btn-success btn-sm" onclick="window.open('http://portal.microsoftonline.com')">
+							Login Email
+						</button>
+					
+					<button type="button" class="btn btn-round btn-danger btn-sm"
+						data-dismiss="modal">Close</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		<!--main content end--> 
+		<!-- js placed at the end of the document so the pages load faster --> 
+		<!--script src="js/jquery.js"></script-->
+		<script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+		<script src="js/bootstrap.min.js"></script> 
+		<script src="js/jquery.dcjqaccordion.2.7.js"></script> 
+		<script src="js/jquery.scrollTo.min.js"></script> 
+		<script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+		<!--script src="js/jquery.sparkline.js" type="text/javascript"></script> 
+		<script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script> 
+		<script src="js/owl.carousel.js" ></script--> 
+		<script src="assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>		
+		<!--common script for all pages--> 
+		<script src="js/common-scripts.js"></script>
+		<!--script for this page only-->
+		<script type="text/javascript" src="js/bowser.min.js"></script>
+		<script type="text/javascript" src="js/jshashtable.js"></script>
+		
+		<script>		
+			(function(a){(jQuery.browser=jQuery.browser||{}).mobile=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))})(navigator.userAgent||navigator.vendor||window.opera);
+
+			$(function(){	
+				//console.log("init");
+				
+				// nicescroll announcement tab & sidebar, use regular scrollbar for Metro IE
+				if (bowser.name!="Internet Explorer" || (bowser.name=="Internet Explorer" && navigator.userAgent.indexOf("x64")=="-1"))
+				{
+					$("#announcement").niceScroll();
+					$("#sidebar").niceScroll({styler:"fb",cursorcolor:"#e8403f", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+				}
+				
+				// Populate summaries
+				$("#academicWeek").load("getAcademicWeek");
+				
+				var dview = "basicWeek";
+				if (jQuery.browser.mobile==true)
+					dview = "basicDay";
+				
+				loadCalendar();
+				
+				// Populate summaries
+				//$("#studentPhoto").attr("src","/viewImage.htm?name="+$('#username').text().trim());					
+				$("#newMessage").load("studentPortal?action=getNewMessageCount&username="+$('#username').text().trim());
+				$("#currentSemesterCredit").load("studentPortal?action=getCurrentSemesterCredit&username="+$('#username').text().trim());
+				$("#totalOutstanding").load("studentPortal?action=getTotalOutstanding&username="+$('#username').text().trim());
+				$("#currentSemesterCode").load("studentPortal?action=getCurrentSemesterCode&username="+$('#username').text().trim(), function() {
+					$("#currentSemesterCreditUrl").attr("href", "/assessment.htm?selSemester=" + $("#currentSemesterCode").text().trim());
+					$("#absentClassUrl").attr("href", "/studAttendance.htm?selSemester=" + $("#currentSemesterCode").text().trim());
+				});
+				//console.log("load on-screen help "+$('#username').text().trim());
+				// On-screen help for first time seeing new Student Portal
+				$.get("https://online1.unikl.edu.my/ecitieServices/onscreenHelp?id="+$('#username').text().trim()+"&app=STUDENT_PORTAL", function(data) {
+					if (data.trim()=="Y")
+					{
+						// Adjust on-screen help size
+						var screenWidth = $(window).width();
+						var screenHeight = $(window).height();
+						//console.log(screenWidth+' '+screenHeight);
+						if (screenWidth<800)
+							$(".modal-dialog-firsttime").css( {
+								'position':'relative',
+								'width':'98%',
+								'margin-left':'0px',
+								'margin-top':'200px',
+								'padding':'0px'
+							});
+						else
+							$(".modal-dialog-firsttime").css( {
+								'position':'relative',
+								'width':'800px',
+								'height':'600px',
+								'margin-left':Math.round((screenWidth-800)/2)+'px',
+								'margin-top':Math.round((screenHeight-600)/2)+'px'
+							});
+						$('#firstTimePortalModal').modal('show');
+	        		}
+				});
+
+				$.widget("custom.catcomplete", $.ui.autocomplete, {
+			    	 _create: function() {
+						this._super();
+						this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+					},
+					_renderMenu: function( ul, items ) {
+						var that = this,
+						currentCategory = "";
+						$.each( items, function( index, item )
+						{
+							var li;
+							if ( item.category != currentCategory )
+							{
+								ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+								currentCategory = item.category;
+							}
+							li = that._renderItemData( ul, item );
+							if ( item.category )
+							{
+								li.attr( "aria-label", item.category + " : " + item.label );
+							}
+						});
+					}
+			    });
+			    
+			    $("#searchStudentPortal").catcomplete({
+			    	delay: 300,
+			        source: function(request, response) {
+			            $.ajax({
+			                url: "search",
+			                dataType: "json",
+			                data: {
+			                    term: request.term
+			                },
+			                success: function(data) {
+			                    response(data);
+			                    //console.log("data length="+data.length);
+			                   	//console.log(data);
+			                }
+			            });
+			        },
+			        minLength: 2,
+			        select: function(event, ui)
+			        {
+			            console.log( ui.item ?
+							"Selected: " + ui.item.value + " id= " + ui.item.id :
+							"Nothing selected, input was " + this.value );
+						if (ui.item!="")
+						{
+							if (ui.item.id.indexOf("menu")!=-1)
+								var win = window.open(ui.item.id.substring(5), '_blank');
+							else if (ui.item.id.indexOf("announcement,")!=-1)
+								//openAnnouncementDetl(announcementMap.get(ui.item.id.substring(13)));
+								loadAnnouncementDetail(ui.item.id.substring(13));
+							else if (ui.item.id.indexOf("ir,")!=-1)
+							{
+								/*$("#irContent").load("http://ir.unikl.edu.my/jspui/password-login?token=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I", function() {
+									console.log("1");
+									$("#irContent").load("http://ir.unikl.edu.my/jspui/handle/"+ui.item.id.substring(3)+"?mini=y", function() {
+										console.log("2");
+										$("#irModal").modal('show');
+									});
+								});*/
+								// Auto-login to IR first if not yet done
+								//$.get("http://ir.unikl.edu.my/jspui/mydspace", function(data) {
+									//if (data.indexOf("Log In to DSpace")!=-1)
+									{
+										var win = window.open("https://ir.unikl.edu.my/jspui/password-login?token=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I", '_blank');
+										var mini = "";
+										//if (jQuery.browser.mobile==true)
+											mini = "?mini=y";
+										setTimeout(function (){
+											win.location.href= "https://ir.unikl.edu.my/jspui/handle/"+ui.item.id.substring(3)+mini;
+										}, 1000);
+									}
+								//});
+							}
+							else
+							//else if (ui.item.id.indexOf("staff")!=-1)
+							{
+								loadProgressLarge();
+								$("#searchStudentPortalText").load("searchOutput?term="+ui.item.id, function(response, status, xhr) {								
+									if ($("#searchStudentPortalText").html()==null || $("#searchStudentPortalText").html().length==0)
+								  		$("#searchStudentPortalText").html(response);
+								  	$('#overlay2').remove();
+									$('#searchStudentPortalModal').modal('show');
+								});	
+								/*$("#searchStudentPortalText").load("searchOutput?term="+ui.item.id, function()
+								{
+									$('#overlay2').remove();
+									$('#searchStudentPortalModal').modal('show');
+								});*/
+							}
+							$("#searchStudentPortal").val($("#searchStudentPortalTerm").val());	
+						}						
+			        }
+				});
+				
+				var announcementMap = new Hashtable();
+				
+				
+				$('.modalBuffer').hide();
+				
+				console.log("N");
+				<!--c:if test="false"-->
+					/*$('#passwordIcNumberModal').modal({
+						backdrop: 'static',
+						keyboard: false
+					});*/
+				<!--/c:if-->
+					
+				checkHatsStatus();
+			});
+			
+		    function loadProgress ()
+		    {
+		    	//console.log("loading");
+		        // add the overlay with loading image to the page
+		        var over = '<div id="overlay">' +
+		            '<img id="loading" src="img/wait-small.gif">' +
+		            '</div>';
+		        $(over).appendTo('body');
+		    }
+		    
+		    function openAnnouncementDetl (idx)
+			{
+				$('#announcementDetailText').html($('#announcementBody'+idx).html());
+				$('#announcementDetailTitle').html($('#announcement2'+idx).html());
+				$('#announcementDetailModal').modal('show');
+			}
+
+			$('#searchHelp').click(function(event){
+				//$('#searchHelpModal').modal('show');
+				window.open ("smartSearchSlideshow.jsp", "_blank");
+			});
+
+			function loadAnnouncementDetail (announcementId)
+			{
+				var ann = window.open ("announcementDetail.jsp?announcementId="+announcementId, "_blank");
+				/*jQuery.getJSON("loadAnnouncementDetail?announcementId="+announcementId,function(data) {
+					$('#uniklAnnouncementDetailTitle').html(data.NA_TITLE);
+					$('#uniklAnnouncementDetailText').html(data.NA_CONTENT);
+					$('#uniklAnnouncementDetailModal').modal('show');
+			    });*/
+			}
+
+	 		// PHOTO UPLOAD STARTS
+			
+			 function clickUploadPhoto(){
+				$('#photoInput').click();
+			  }
+			  
+			  $('#photoInput').on('change', function(){
+					// check FormData and ajax ..
+					document.getElementById("uploadPhotoForm").submit();
+				});
+						
+				$('#uploadPhotoForm').on('submit',(function(e) {
+			        e.preventDefault();
+			        var formData = new FormData(this);
+					var now = (new Date().getTime() / 1000);
+					jQuery.ajax({
+			            type:'POST',
+			            url: "uploadStaffProfilePhoto",
+			            data: formData,
+			            contentType: false,
+						processData: false,
+						async: false,
+						success: function() {
+							$('#profilePhoto').attr("src", "getStaffProfilePhoto?staffId=52243113512&time="+now);
+				        },
+			            error: function(data){
+			                //console.log("error");
+			                //console.log(data);
+			            }
+		        	});
+		   		}));
+		
+		    $("#photoInput").on("change", function() {
+		        $("#uploadPhotoForm").submit();
+		    });
+			// PHOTO UPLOAD ENDS
+
+			function loadCalendar ()
+			{
+				// Initialize test calendar
+				var date = new Date();
+				var d = date.getDate();
+				var m = date.getMonth();
+				var y = date.getFullYear();
+				var dview = "";
+				if (jQuery.browser.mobile==false)
+					dview = "basicWeek";
+				else
+					dview = "basicDay";
+				$('#calendar').fullCalendar({
+					header: {
+			            left: 'prev,next today',
+			            center: dview=='basicWeek'?'title':'',
+						right: dview=='basicWeek'?'month,basicWeek':''
+			        },
+					defaultView: dview,
+					firstDay: 1,
+					timeFormat: 'h:mmTT{ - h:mmTT}',
+					height: 200,
+					editable: false,
+					droppable: false,
+					/*viewRender: function(view, element)
+					{
+						console.log('new view: ' + view.name);
+					},*/
+			        loading: function(isLoading, view)
+			        {
+			        	if (isLoading)
+			        	{
+			        		//console.log('loading');
+			        		loadProgress();
+			        	}
+			        	else
+			        	{
+			        		//console.log('loading complete');
+			        		$('#overlay').remove();
+			        	}
+			        },
+			        eventSources: [
+			        {
+			            url: 'studentPortal',
+			            allDayDefault: false,
+			            data: {
+			            	action: 'getStudentClassesJson',
+			               	token: $('#token').text().trim()
+			            },
+			            backgroundColor: '#f8b552',
+			            borderColor: '#f8b552',
+			            error: function(data, errorThrown)
+				        {
+				        	//console.log('error : '+errorThrown);
+				        	//console.log('error : '+data);
+				        }					        
+			        },				        
+			       	{
+			            url: 'studentPortal',
+			            allDayDefault: false,
+			            data: {
+			            	action: 'getSubjRegIntervalJson',
+			               	token: $('#token').text().trim()
+			            },
+			            backgroundColor: '#f57f68',
+			            borderColor: '#f57f68',
+			            error: function(data, errorThrown)
+				        {
+				        	//console.log('error : '+errorThrown);
+				        	//console.log('error : '+data);
+				        }
+			        },				        
+			       	{
+			            url: 'studentPortal',
+			            allDayDefault: false,
+			            data: {
+			            	action: 'getAcademicWeekJson',
+			               	token: $('#token').text().trim()
+			            },
+			            backgroundColor: '#6569c0',
+			            borderColor: '#6569c0',
+			            error: function(data, errorThrown)
+				        {
+				        	//console.log('error : '+errorThrown);
+				        	//console.log('error : '+data);
+				        }
+			        },
+			        {
+			            url: 'studentPortal',
+			            allDayDefault: false,
+			            data: {
+			            	action: 'getPublicHolidayJson',
+			               	token: $('#token').text().trim()
+			            },
+			            backgroundColor: '#87d288',
+			            borderColor: '#87d288',
+			            error: function(data, errorThrown)
+				        {
+				        	//console.log('error : '+errorThrown);
+				        	//console.log('error : '+data);
+				        }
+			        }	        	        
+			        ]
+				});			
+			}
+			
+			function startGuide ()
+			{
+				//window.location.assign("guide.jsp?width="+$(window).width());
+				window.location.assign("guide.jsp");
+			}
+		
+			$('#firstTimeLink').on('click', function(){ 
+				$.post( "/StudentEmail/firstTimeLogin.htm", { studentId: "52243113512" });
+             })
+                                                
+                                                
+                                                $('#ecitieMsgBtn').on('click', function(){
+                                                                startBuffer();
+                                                                $.post( "/StudentEmail/sendPasswordECITIEMessage.htm", { tokenID: "52243113512-9gPaLJuvIaFgkJWceddSRywgC3I" })
+                                                                  .done(function( data ) {
+                                                                                stopBuffer();
+                                                                                $("#newMessage").load("studentPortal?action=getNewMessageCount&username="+$('#username').text().trim());
+                                                                                alert( data );
+                                                                  });
+                                                })
+                                                
+                                                $('#altEmailBtn').on('click', function(){
+                                                  startBuffer();
+                                                  $.post( "/StudentEmail/sendPasswordAlternativeEmail.htm", { tokenID: "52243113512-9gPaLJuvIaFgkJWceddSRywgC3I" })
+                                                  .done(function( data ) {
+                                                                stopBuffer();
+                                                                alert( data );
+                                                  });
+                                                                
+                                                })
+                                                
+                                                function startBuffer(){
+                                                                $('.modalBuffer').show();
+                                                }
+                                                
+                                                function stopBuffer(){
+                                                                $('.modalBuffer').hide();
+                                                }
+			
+
+			function loadProgressLarge ()
+		   	{
+				// add the overlay with loading image to the page
+		       	var over = '<div id="overlay2">' +
+		           '<img id="loading2" src="img/wait.gif">' +
+		           '</div>';
+		       	$(over).appendTo('body');
+		   	}
+
+			function initSearchStudentPortal ()
+			{
+				if ($("#searchStudentPortalTerm").val()!=$("#searchStudentPortal").val()) // Pickup the last search term
+				{
+					$("#searchStudentPortal").val($("#searchStudentPortalTerm").val().substring(0,$("#searchStudentPortalTerm").val().length-1));
+					/*$("#searchStaffPortal").trigger ( {
+			            type: 'keypress', keyCode: 67, which: 67, charCode: 67
+			        } );*/
+				}
+			}
+
+			function clickHatsProfiling ()
+			{
+				checkHatsStatus();
+				$('#hatsProfilingModal').modal('show'); 				
+			}
+			
+			function checkHatsStatus ()
+			{
+				<!-- HATS checking (new student)-->
+				//$.get("https://portal.unikl.edu.my/hatsProfile/getInitialStatus?studentId=52243113512", function(data)
+				//$.get("/hatsProfile/getInitialStatus?studentId=52243113512", function(data)
+				$.get("getHatsInitialStatus", function(data)						
+				{
+					$('#hatsInitialStatus').val(data);
+					console.log("hatsInitialStatus="+$("#hatsInitialStatus").val());
+					if ($("#hatsInitialStatus").val()=="NOT_DONE")
+					{
+						$("#hatsInitialStatus2").show();
+						$("#hatsInitialStatus3").hide();
+						$("#hatsInitialStatus4").show();
+						$("#hatsInitialStatus5").hide();
+					}
+					else if ($("#hatsInitialStatus").val()=="IN_PROCESS")
+					{
+						$("#hatsInitialStatus2").hide();
+						$("#hatsInitialStatus3").hide();
+						$("#hatsInitialStatus4").hide();
+						$("#hatsInitialStatus5").show();
+					}
+					//if ($("#hatsInitialStatus").val()=="COMPLETE")
+					else
+					{
+						//$("#hatsReportUrl").attr('href', "/hatsProfile/attachments/"+data);
+						$("#viewHatsSummary").load("viewHatsSummary");
+						$("#hatsReportUrl").attr('href', "https://portal.unikl.edu.my/hatsProfile/attachments/"+data);
+						$("#hatsInitialStatus2").hide();
+						$("#hatsInitialStatus3").show();
+						$("#hatsInitialStatus4").hide();
+						$("#hatsInitialStatus5").hide();
+					}
+				});				
+			}
+			
+			function startInitialHats ()
+			{
+				// To protect against timeout, store Student ID in HTML5 local storage
+				//localStorage.setItem("hatsStudentId", "52243113512");
+				//localStorage.setItem("hatsToken", "52243113512-9gPaLJuvIaFgkJWceddSRywgC3I");
+				//console.log(localStorage.getItem("hatsStudentId"));
+				//console.log(localStorage.getItem("hatsToken"));
+				window.location.assign("https://portal.unikl.edu.my/hatsProfile/startInitialHats?studentId=52243113512&token=52243113512-9gPaLJuvIaFgkJWceddSRywgC3I", "_blank");
+				//window.location.assign("/hatsProfile/startInitialHats?studentId=52243113512", "_blank");
+				//window.open("http://portal.unikl.edu.my/hatsProfile/startInitialHats?studentId=52243113512", "_blank");
+				//window.open("/hatsProfile/startInitialHats?studentId=52243113512", "_blank");
+			}
+		</script>
+		
+		<style>
+			#profilePhotoContainer{
+				width:100px;
+				height:100px;
+			}
+			#profilePhotoContainer:hover > #profilePhoto{
+				display:none;
+			}
+			#profilePhotoContainer:hover #uploadIcon{
+				display:block!important;
+			}
+			#profilePhotoContainer:hover #uploadText{
+				display:block!important;
+			}
+		
+			.fc-today
+			{
+				background: -webkit-linear-gradient(#fff1a5, #ffe45c); /* For Safari 5.1 to 6.0 */
+				background: -o-linear-gradient(#fff1a5, #ffe45c); /* For Opera 11.1 to 12.0 */
+				background: -moz-linear-gradient(#fff1a5, #ffe45c); /* For Firefox 3.6 to 15 */
+				background: linear-gradient(#fff1a5, #ffe45c); /* Standard syntax (must be last) */
+			}
+		</style>
+
+	<style>
+		#overlay {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			background: #000;
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+		}
+		#loading {
+			width: 50px;
+			height: 57px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -28px 0 0 -25px;
+		}
+		#overlay2 {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			background: #000;
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+			z-index: 99999;
+		}
+		#loading2 {
+			width: 480px;
+			height: 320px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -160px 0 0 -240px;
+		}
+		
+		.box-1
+		{
+			position:relative;overflow:hidden;			
+		}
+
+		.box-2
+		{
+			position:relative;overflow:hidden;			
+		}
+
+		.box-3
+		{
+			position:relative;overflow:hidden;			
+		}
+		
+		.ajax_loader {background: url("images/spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}
+		.blue-loader .ajax_loader {background: url("images/ajax-loader_blue.gif") no-repeat center center transparent;}
+		
+		.ajax_loader_summaries { width:100%;height:100%; }
+		.blue-loader_summaries .ajax_loader_summaries { }
+	</style>
+
+	<style>
+		.modal-dialog { 
+			width: 98%;
+			padding: 0;
+		}
+		
+		.modal-dialog-firsttime {
+			position: relative;
+			width: 50%;
+			margin-left: 450px;
+		}
+		
+		#lean_overlay {
+		    position: fixed;
+		    z-index:100;
+		    top: 0px;
+		    left: 0px;
+		    height:100%;
+		    width:100%;
+		    background: #000;
+		    display: none;
+		}
+	</style>
+		
+	</body>
+</html>

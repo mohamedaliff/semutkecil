@@ -1,0 +1,407 @@
+<?php
+
+session_start();
+include ('Connections/connect.php');
+
+if(@$_SESSION['student']  ) {
+
+$studentId = ($_SESSION['student']);
+$total = null;
+$count1 = null;
+$count2 = null;
+$count3 = null;
+
+if ($total == 0) {
+     
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tblpartner.companyName,tblpartner.companyUsername,tblofferjob.offerid,tblofferjob.companyId,
+tblofferjob.studentId,tblofferjob.position,tblofferjob.itime,tblofferjob.ivenue,tblofferjob.information,tblofferjob.idate,tblofferjob.status,
+tblofferjob.offerdate FROM tblpartner INNER JOIN tblofferjob ON tblpartner.companyUsername = tblofferjob.companyId WHERE tblofferjob.studentId = '$studentId' AND tblofferjob.status = 'waiting' OR tblofferjob.status = 'interview' AND tblofferjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count1 = $mysqli->affected_rows;
+    
+}
+}
+
+include ('Connections/connect.php');
+if ($result = $mysqli->query("SELECT tbljob.jobId,tblapplyjob.applyId,tblapplyjob.studentId,
+tblapplyjob.postId,tblapplyjob.position,tblapplyjob.jstatus,tblapplyjob.aDate FROM tbljob
+INNER JOIN tblapplyjob ON tbljob.jobId = tblapplyjob.postId
+WHERE tblapplyjob.jstatus = 'approved' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'rejected' AND tblapplyjob.studentId = '$studentId' OR tblapplyjob.jstatus = 'interview' AND tblapplyjob.studentId = '$studentId'"))
+    {
+  if ($result->num_rows != 0) {
+
+    $count2 = $mysqli->affected_rows;
+
+    
+}
+}
+
+include ('Connections/connect.php');
+
+
+if ($result = $mysqli->query("SELECT tblapplymobilization.otherId,tblapplymobilization.mlocation,tblapplymobilization.mcgpa,tblapplymobilization.mdate,tblapplymobilization.mstatus,tblother.companyId,tblpartner.companyName,tblapplymobilization.studentId,tblapplymobilization.mId
+FROM tblother INNER JOIN tblapplymobilization ON tblapplymobilization.otherId = tblother.otherId
+INNER JOIN tblpartner ON tblother.companyId = tblpartner.companyUsername WHERE tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'interview' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'rejected' OR tblapplymobilization.studentId = '$studentId' AND tblapplymobilization.mstatus= 'approved'"))
+    {
+  if ($result->num_rows != 0) {
+
+        $count3 = $mysqli->affected_rows;
+
+    
+}
+}
+
+$total = $count1 + $count2 + $count3;
+
+
+} else {
+
+  $total = 0;
+}
+
+  ?>
+
+
+<?php
+
+if (isset($_POST['submit']))
+{
+
+  $location = mysqli_real_escape_string($mysqli, $_POST['location']);
+  $position = mysqli_real_escape_string($mysqli, $_POST['position']);
+  
+
+  if ($location != "" && $position == "") {
+
+  $where_sql = " AND tblpartner.companyState = '{$location}'";
+
+} else if ($location != "" && $position != "") {
+
+  $where_sql = " AND (tblpartner.companyState = '{$location}' AND tbljob.position1 LIKE '{$position}%') OR (tblpartner.companyState = '{$location}' AND tbljob.position2 LIKE '{$position}%') OR (tblpartner.companyState = '{$location}' AND tbljob.position3 LIKE '{$position}%') OR (tblpartner.companyState = '{$location}' AND tbljob.position1 LIKE '%{$position}') OR (tblpartner.companyState = '{$location}' AND tbljob.position2 LIKE '%{$position}') OR (tblpartner.companyState = '{$location}' AND tbljob.position3 LIKE '%{$position}') OR (tblpartner.companyState = '{$location}' AND tbljob.position1 LIKE '%{$position}%') OR (tblpartner.companyState = '{$location}' AND tbljob.position2 LIKE '%{$position}%') OR (tblpartner.companyState = '{$location}' AND tbljob.position3 LIKE '%{$position}%')";
+
+} else if ($location == "" && $position != "") {
+
+  $where_sql = "  AND (tbljob.position1 LIKE '{$position}%' OR tbljob.position1 LIKE '%{$position}' OR tbljob.position1 LIKE '%{$position}%') OR (tbljob.position2 LIKE '{$position}%' OR tbljob.position2 LIKE '%{$position}' OR tbljob.position2 LIKE '%{$position}%') OR (tbljob.position3 LIKE '{$position}%' OR tbljob.position3 LIKE '%{$position}' OR tbljob.position3 LIKE '%{$position}%') ";
+
+
+}else {
+
+  $where_sql = "";
+
+}
+
+}
+else
+{
+  $where_sql = "";
+}
+
+include ('Connections/connect.php');
+$studentId = ($_SESSION['student']);
+
+$result2 = $mysqli->query("SELECT * FROM tblstudent WHERE studentId=$studentId  ");
+if ($result2->num_rows != 0) {
+
+  while($row = mysqli_fetch_array($result2)) {
+
+  $cgpa1 = $row[7];
+
+
+
+$result = $mysqli->query("SELECT tbljob.jobId, tbljob.title, tbljob.position1, tbljob.description1, tbljob.requirement1, tbljob.mincgpa1, tbljob.alowance1, tbljob.status, tbljob.pdate, tbljob.companyId, tblpartner.companyName, tblpartner.companyAddress, tblpartner.companyCity, tblpartner.companyState FROM tbljob INNER JOIN tblpartner ON tbljob.companyId = tblpartner.companyUsername WHERE tbljob.status = 'active' AND tbljob.mincgpa1 <= $cgpa1 ".$where_sql."  ORDER BY tbljob.pDate DESC");
+
+}
+}
+?>
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+   <title>UniKl MIIT INTRA Management System</title>
+     <link rel="icon" type="image/ico" href="image/favicon.ico">   <meta name="keywords" content="" />
+   <meta name="description" content="" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+
+<style>
+ .banner {
+    width: 100%;
+    height: 200px;
+    border: 0px solid #73AD21;
+}
+.placeholder1{color: #A4A4A4;}
+select option:first-child{color: #A4A4A4; display: none;}
+select option{color: #555;} 
+.title {
+    font-weight: bold;
+    background-color: #393D5C;
+    padding-left :20px;
+    
+}
+.sub {
+   
+    background-color: #DBDBDE;
+    padding-left :20px;
+   }
+.error {
+    background-color: #F6CECE;
+}
+.badge {
+  background-color: red;
+
+}
+</style>
+
+
+
+
+</head>
+<body>
+
+     <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="image/unikl.png"width="50" height="25" border="0"></a>
+          </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="homeStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li class="active"><a href="searchJob.html" style="color:yellow;"><span class="glyphicon glyphicon-search"></span> Search INTRA</a></li> 
+ <?php 
+ if ($total > 0){ ?>
+         
+        <li><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification <span class="badge"><?php echo $total; ?></span></a></li> <?php }else{ ?>
+
+        <li><a href="notiIntraRequest.html" style="color:yellow;"><span class="glyphicon glyphicon-envelope"></span> Notification</span></a></li> <?php } ?>
+
+        </li>
+
+        <li><a href="myResume.php" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Resume</a></li>
+        <li><a href="addCoverLetter.html" style="color:yellow;"><span class="glyphicon glyphicon-list-alt"></span> Cover Letter</a></li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="profileStudent.php" style="color:yellow;"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="changePasswordStudent.html" style="color:yellow;"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
+            <li><a href="logout.php" style="color:yellow;"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+          </ul>
+    </div>
+  </div>
+</nav>
+
+<header>
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
+        <div class="banner">            
+                <img src="image/header.jpg" alt = "Ottawa" class = "banner">
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+            <div class="col-lg-12 text-left">
+                <h1>INTRA Advertisement </h1>
+                
+                <p>&nbsp;</p>
+             
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col-md-8">
+              <p>
+
+<?php 
+
+
+  
+  if ($result->num_rows != 0) {
+     
+      echo "<table class='scroll' width='700' border='0' bgcolor='#FF00FF' align='left'>";
+      echo "<tbody>";
+
+     while($row = mysqli_fetch_array($result)) {
+ 
+ 
+ // get data from db
+
+ $alowance = $row['alowance1'];
+
+      //echo "<form id=\"Form".$row[0]."\" accept-charset='UTF-8'>";//DO THIS: ADD THIS
+      echo "<input type='hidden' name='id' value='".$row[0]."'>";
+      echo "<tr>";
+      echo "<td>";
+      echo '<div  class="title bg-primary" align="left" style="font-weight: bold;">' . $row['title'] . '<br/>'. '&nbsp;' . 'By '.$row['companyName'].' - '. $row['pdate'] . '</div>';
+
+?>
+      
+      
+      <div class="sub"><a href=""> <br><?php echo $row['companyName']; ?> </a> <img src="image/location.png" alt = "location" height="12" width="12" > <?php echo $row['companyCity']; echo ", "; echo $row['companyState']; ?><br>&nbsp;</br></div>
+      
+      <div class="sub"><font style="font-weight:bold;">Position:</font> <?php echo $row['position1']; ?><br>&nbsp;</br></div>         
+
+      <div class="sub"><font style="font-weight:bold;">Job Description: </font></div> 
+      <div class="sub"><?php echo nl2br($row['description1']); ?><br>&nbsp;</br></div>
+
+      <div class="sub"><font style="font-weight:bold;">Job Requirement: </font></div> 
+      <div class="sub"><?php echo nl2br($row['requirement1']); ?><br>&nbsp;</br></div>
+
+      <div class="sub"><font style="font-weight:bold;">Minimum CGPA:</font> <?php echo $row['mincgpa1']; ?><br>&nbsp;</br></div>
+
+      <div class="sub"><font style="font-weight:bold;">Monthly Alowance:</font> <?php if ($alowance < 101){
+          echo "Not Available";
+        } else if ($alowance < 201){
+          echo "RM 100-200";
+          } else if ($alowance < 301){
+          echo "RM 200-300";
+          } else if ($alowance < 401){
+          echo "RM 300-400";
+          } else if ($alowance < 501){
+          echo "RM 400-500";
+          } else if ($alowance <= 1000){
+          echo "RM 500-1000";
+          } else {
+            echo "Above RM 1000";
+          } ?></div>
+
+        <div  align="right" class="sub"><a href="viewJobStudent.php?id=<?php echo $row[0]; ?>" class="btn btn-success">Apply Now</a></div>
+        <p>
+
+ 
+<?php
+
+      echo "</td>";
+      echo "</tr>";
+
+}
+echo "<tr>";
+echo '<td>' . '&nbsp;' . '</td>';
+echo "</tr>";
+echo "</tbody>";
+echo "</table>";
+
+$result->free();
+
+} else {
+
+    echo "<table class='error' width='700' border='0' bgcolor='#FF00FF' align='left'>";
+    echo "<tbody>";
+    echo '<tr>';
+    echo '<td>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'This system used smart CGPA filtering.' .'</div>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'There might be no record found based on your current CGPA or' . '</div>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'no record found based on the searching criteria.' . '</div>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'Please refine your search by trying following suggestion.' .'</div>';
+    echo '<div style="color:red">' . '&nbsp;' . '<img src="image/marker.gif" alt = "a" >'. ' Check your spelling.' .'</div>';
+    echo '<div style="color:red">' . '&nbsp;' . '<img src="image/marker.gif" alt = "a" >' . ' Use suggestion list in the dropdown list.' .'</div>';
+    echo '<div style="color:red;font-weight:bold">' . '&nbsp;' . 'Or' .'</div>';
+    echo '<div style="color:red">' . '&nbsp;' . '<img src="image/marker.gif" alt = "a" >' . ' Contact INTRA Linkage Unit for further assistance.' .'</div>';
+    echo '</td>';
+    echo '</tr>';
+    echo "<tr>";
+    echo '<td>' . '&nbsp;' . '</td>';
+    echo "</tr>";
+    echo "</tbody>";
+    echo "</table>";
+    
+
+}
+
+?>
+</div>
+<p>
+  <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i><span class="glyphicon glyphicon-search"></span> Search Criteria</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form name = "searchForm"  method="POST" action="searchJob.html">
+                        <p><select id="location" name="location" class="form-control placeholder1">
+                                <option value="" selected>All Location</option>
+                                <option value="selangor">Selangor</option>
+                                <option value="kuala lumpur">Kuala Lumpur</option>
+                                <option value="sarawak">Sarawak</option>
+                                <option value="johor">Johor</option>
+                                <option value="pulau pinang">Pulau Pinang</option>
+                                <option value="sabah">Sabah</option>
+                                <option value="perak">Perak</option>
+                                <option value="pahang">Pahang</option>
+                                <option value="negeri sembilan">Negeri Sembilan</option>
+                                <option value="kedah">Kedah</option>
+                                <option value="melaka">Melaka</option>
+                                <option value="terengganu">Terengganu</option>
+                                <option value="kelantan">Kelantan</option>
+                                <option value="perlis">Perlis</option>
+                                <option value="labuan">Labuan</option>
+                                <option value="putrajaya">Putrajaya</option>
+                            </select></p>
+                        <p><input type="text" name="position" id="position" class="form-control" placeholder="Any Position"/></p>
+                        <p></p>
+                        <p><input type="submit" value="Search" id="btnSubmit" name="submit" class="btn btn-success" /></p>
+                         </form>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+
+
+
+<footer align="center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; UniKl MIIT INTRA Management System (2016)</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+
+
+</html>
+
+
+
+<?php
+
+} else {
+  
+  session_destroy();
+  header("location: login.php");
+  exit;
+
+  
+}
+
+?>

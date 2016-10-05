@@ -1,0 +1,61 @@
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+   <title>Admin Homepage </title>
+   <meta name="keywords" content="" />
+   <meta name="description" content="" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
+<script>
+
+$(function() {
+    $('input[name="cate"]').on('click', function() {
+        if ($(this).val() == 'Industrial Training') {
+            $('#textboxes').show();
+            $('#textboxes1').hide();
+        }
+        else if ($(this).val() == 'Global Mobilization') {
+            $('#textboxes1').show();
+            $('#textboxes').hide();
+        }
+        else {
+            $('#textboxes1').hide();
+            $('#textboxes').hide();
+        }
+    });
+});  
+
+</script>
+</head>
+<body>
+
+     <!-- Navigation -->
+   <input type="radio" id="1" name="cate" value="Industrial Training" checked> Industrial Training
+            <input type="radio" id="2" name="cate" value="Global Mobilization"> Global Mobilization
+
+    
+<div id="textboxes" style="display: none">
+ <input type="text" /> 
+ <input type="text" /> 
+
+</div>
+<div id="textboxes1" style="display: none">
+ <input type="text" /> 
+ <input type="text" /> 
+ <input type="text" /> 
+</div>
+
+</body>
+</html>
